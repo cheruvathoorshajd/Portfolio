@@ -1,0 +1,453 @@
+/* Base Styles */
+:root {
+    --background: #0f0f0f;
+    --text: #ffffff;
+    --accent: #ff3c00;
+    --secondary: #333333;
+    --light-gray: #f5f5f5;
+    --blue: #5352ed;
+    --transition: 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    --heading-font: 'Della Respira', serif;
+    --body-font: 'Hatton', sans-serif;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: var(--body-font);
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-family: var(--body-font);
+  }
+  
+  a:hover {
+    color: var(--accent);
+  }
+  
+  /* Typography */
+  h1, h2, h3, h4, h5 {
+    font-family: var(--heading-font);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  
+  p, span, button, input, textarea {
+    font-family: var(--body-font);
+  }
+  
+  /* Preloader */
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .greeting-container {
+    text-align: center;
+  }
+  
+  .greeting {
+    font-size: 5vw;
+    font-weight: 700;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    font-family: var(--heading-font);
+  }
+  
+  /* Navigation */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 0;
+    z-index: 100;
+    mix-blend-mode: difference;
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+  }
+  
+  .logo {
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: var(--heading-font);
+  }
+  
+  .menu-button {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+    font-family: var(--body-font);
+  }
+  
+  /* Menu Overlay */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--background);
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition);
+  }
+  
+  .menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .menu-links {
+    list-style: none;
+    text-align: center;
+  }
+  
+  .menu-links li {
+    margin: 30px 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .menu-overlay.active .menu-links li {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: calc(0.1s * var(--i));
+  }
+  
+  .menu-link {
+    font-size: 4rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    font-family: var(--heading-font);
+  }
+  
+  .menu-link:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+  }
+  
+  .menu-link:hover:after {
+    width: 100%;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 0 50px;
+    position: relative;
+  }
+  
+  .main-title {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    overflow: hidden;
+    font-family: var(--heading-font);
+  }
+  
+  .subtitle {
+    font-size: 2rem;
+    margin-bottom: 60px;
+    overflow: hidden;
+    font-family: var(--heading-font);
+  }
+  
+  .hero-description {
+    max-width: 800px;
+  }
+  
+  .hero-description p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    overflow: hidden;
+    font-family: var(--body-font);
+  }
+  
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-family: var(--body-font);
+  }
+  
+  /* Section Styles */
+  section {
+    padding: 150px 0;
+  }
+  
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 60px;
+  }
+  
+  .section-number {
+    font-size: 1.2rem;
+    margin-right: 20px;
+    opacity: 0.5;
+    font-family: var(--body-font);
+  }
+  
+  .section-header h2 {
+    font-size: 4rem;
+    font-family: var(--heading-font);
+  }
+  
+  /* About Section */
+  .about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+  
+  .about-text {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .about-text p {
+    font-size: 1.8rem;
+    line-height: 1.4;
+    font-family: var(--body-font);
+  }
+  
+  .about-image {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .img-placeholder {
+    width: 100%;
+    height: 400px;
+    background-color: var(--secondary);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Project Showcase - Vertical Layout */
+  .project-showcase {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-item {
+    margin-bottom: 100px;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  
+  .project-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+    position: relative;
+    margin-bottom: 50px;
+  }
+  
+  .project-image {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+  }
+  
+  .project-details {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+  }
+  
+  .project-title {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    font-family: var(--heading-font);
+  }
+  
+  .project-category {
+    font-size: 1.2rem;
+    opacity: 0.7;
+    font-family: var(--body-font);
+  }
+  
+  .view-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 70px;
+    height: 70px;
+    background-color: var(--blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 2;
+    font-family: var(--body-font);
+  }
+  
+  .view-button:hover {
+    transform: scale(1.1);
+    background-color: var(--accent);
+    color: white;
+  }
+  
+  .project-divider {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Contact Section */
+  .contact-content {
+    max-width: 800px;
+  }
+  
+  .contact-content p {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    font-family: var(--body-font);
+  }
+  
+  .primary-link {
+    font-size: 3rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 40px;
+    font-family: var(--body-font);
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .social-links a {
+    font-size: 1.2rem;
+    font-family: var(--body-font);
+  }
+  
+  /* Magnetic Button */
+  .magnetic-button {
+    display: inline-block;
+    position: relative;
+    font-family: var(--body-font);
+  }
+  
+  /* Footer */
+  footer {
+    padding: 50px 0;
+    text-align: center;
+    opacity: 0.7;
+  }
+  
+  footer p {
+    font-family: var(--body-font);
+  }
+  
+  /* Media Queries */
+  @media screen and (max-width: 768px) {
+    .main-title {
+      font-size: 3rem;
+    }
+    
+    .subtitle {
+      font-size: 1.5rem;
+    }
+    
+    .hero-description p {
+      font-size: 1.2rem;
+    }
+    
+    .section-header h2 {
+      font-size: 2.5rem;
+    }
+    
+    .about-text p, .contact-content p {
+      font-size: 1.3rem;
+    }
+    
+    .primary-link {
+      font-size: 2rem;
+    }
+    
+    .menu-link {
+      font-size: 2.5rem;
+    }
+    
+    .project-title {
+      font-size: 2.5rem;
+    }
+    
+    .project-details {
+      align-items: flex-start;
+      text-align: left;
+    }
+    
+    .view-button {
+      width: 60px;
+      height: 60px;
+      font-size: 0.9rem;
+    }
+  }
+  
