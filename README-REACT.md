@@ -130,9 +130,11 @@ portfolio/
 - Image hover effects
 
 ### Skills
-- Infinite scrolling skill tags
-- Two separate sections (Technical & Design)
-- Pause on hover
+- 40+ comprehensive technical skills
+- Organized categories: Languages, Frontend, Backend, Cloud, ML, Design, Tools
+- Infinite scrolling with smooth animations
+- Category labels with accent styling
+- Pause on hover for readability
 
 ### Projects
 - Vertical showcase layout
@@ -165,12 +167,34 @@ const projectsData = [
 
 ### Update Skills
 
-Edit `src/components/Skills.js`:
+Edit `src/components/Skills.js` to customize skill categories:
 
 ```javascript
-const technicalSkills = ['Skill 1', 'Skill 2', ...];
-const designSkills = ['Skill 1', 'Skill 2', ...];
+// Programming Languages & Core Technologies
+const coreSkills = ['JavaScript', 'TypeScript', 'Python', ...];
+
+// Frontend Technologies
+const frontendSkills = ['React.js', 'Vue.js', 'Next.js', ...];
+
+// Backend Technologies
+const backendSkills = ['Node.js', 'Express.js', 'Flask', ...];
+
+// Cloud, DevOps & Databases
+const cloudSkills = ['AWS', 'Azure', 'Docker', ...];
+
+// Machine Learning & Data Science
+const mlSkills = ['NumPy', 'Pandas', 'Scikit-learn', ...];
+
+// Design & Tools
+const designSkills = ['Figma', 'Sketch', 'Adobe Creative Suite', ...];
+
+// Development Tools & Practices
+const toolsSkills = ['Git', 'CI/CD', 'Agile/Scrum', ...];
 ```
+
+Skills are organized into two scrolling sections:
+- **Technical Expertise**: Development Stack & Technologies (40+ skills)
+- **Design & Tools**: Design Tools & Development Practices
 
 ### Change Colors
 
