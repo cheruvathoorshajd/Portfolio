@@ -1,0 +1,101 @@
+.skills-section {
+  padding: 80px 0;
+  background-color: var(--background);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.skills-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-section2 {
+  padding: 20px 0;
+  background-color: var(--background);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.skills-section2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-container,
+.skills-container2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin-top: 80px;
+}
+
+.skills-container2 {
+  margin-top: 50px;
+}
+
+.skills-wrapper {
+  display: flex;
+  gap: 80px;
+  animation: scroll-skills 35s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.skills-wrapper2 {
+  display: flex;
+  gap: 80px;
+  animation: scroll-skills 30s linear infinite;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.skill,
+.skill2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  font-family: var(--body-font);
+  color: var(--text);
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.skill:hover,
+.skill2:hover {
+  opacity: 1;
+  color: var(--accent);
+  transform: scale(1.2);
+}
+
+@keyframes scroll-skills {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.skills-wrapper:hover,
+.skills-wrapper2:hover {
+  animation-play-state: paused;
+}
+
+@media screen and (max-width: 768px) {
+  .skill,
+  .skill2 {
+    font-size: 1.8rem;
+  }
+
+  .skills-wrapper,
+  .skills-wrapper2 {
+    gap: 40px;
+  }
+}
