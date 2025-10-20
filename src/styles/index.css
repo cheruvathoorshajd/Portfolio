@@ -63,42 +63,22 @@ section {
 .section-header {
   display: flex;
   align-items: baseline;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
   opacity: 0;
   transform: translateY(50px);
   animation: fadeInUp 0.8s ease forwards;
-  position: relative;
-}
-
-.section-header::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent), transparent);
 }
 
 .section-number {
-  font-size: 1.5rem;
-  margin-right: 30px;
-  color: var(--accent);
-  opacity: 0.8;
+  font-size: 1.2rem;
+  margin-right: 20px;
+  opacity: 0.5;
   font-family: var(--body-font);
-  font-weight: 600;
-  letter-spacing: 2px;
 }
 
 .section-header h2 {
-  font-size: 4.5rem;
+  font-size: 4rem;
   font-family: var(--heading-font);
-  font-weight: 700;
-  letter-spacing: -1px;
-  background: linear-gradient(135deg, var(--text) 0%, rgba(255, 255, 255, 0.7) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 @keyframes fadeInUp {
@@ -110,16 +90,7 @@ section {
 
 @media screen and (max-width: 768px) {
   .section-header h2 {
-    font-size: 2.8rem;
-  }
-
-  .section-number {
-    font-size: 1.2rem;
-    margin-right: 20px;
-  }
-
-  .section-header::after {
-    width: 60px;
+    font-size: 2.5rem;
   }
   
   section {
