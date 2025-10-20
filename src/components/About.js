@@ -47,7 +47,7 @@ const About = () => {
                         </p>
                     </div>
                     <div className="about-image" ref={imageRef}>
-                        <img src="/Boston.png" alt="Boston" className="about-img" />
+                        <img src={`${process.env.PUBLIC_URL}/Boston.png`} alt="Boston" className="about-img" />
                     </div>
                 </div>
             </div>

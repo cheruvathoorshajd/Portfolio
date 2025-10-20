@@ -6,25 +6,25 @@ const Projects = () => {
         {
             title: 'BizzNex',
             category: 'Design & Development',
-            image: '/BizzNex logo.png',
+            image: `${process.env.PUBLIC_URL}/BizzNex logo.png`,
             link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
         },
         {
             title: 'AviaOhr',
             category: 'Design & Development (On-Going)',
-            image: '/AviaOhr.png',
+            image: `${process.env.PUBLIC_URL}/AviaOhr.png`,
             link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
         },
         {
             title: 'VOND.2',
             category: 'Design & Development',
-            image: '/VOND.2.png',
+            image: `${process.env.PUBLIC_URL}/VOND.2.png`,
             link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
         },
         {
             title: 'MedStar',
             category: 'Design & Development',
-            image: '/Medstar.png',
+            image: `${process.env.PUBLIC_URL}/Medstar.png`,
             link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
         }
     ];
