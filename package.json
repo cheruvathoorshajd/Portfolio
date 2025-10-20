@@ -1,9 +1,9 @@
 {
   "name": "portfolio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Professional React Portfolio with smooth animations and modern design",
   "main": "script.js",
-  "homepage": "https://cheruvathoorshajd.github.io/testport",
+  "homepage": "https://cheruvathoorshajd.github.io/Professional-Portfolio",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cheruvathoorshajd/Portfolio.git"
+    "url": "git+https://github.com/cheruvathoorshajd/Professional-Portfolio.git"
   },
   "keywords": [
     "portfolio",
