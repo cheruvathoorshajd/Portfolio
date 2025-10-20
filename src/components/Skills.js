@@ -5,16 +5,49 @@ const Skills = () => {
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
 
-    const technicalSkills = [
-        'JavaScript', 'TypeScript', 'HTML', 'CSS', 'SCSS (Sass)', 'Python',
-        'React.js', 'Node.js', 'MySQL', 'MongoDB', 'Express.js', 'Redux',
-        'Mongoose', 'Gulp', 'Vue', 'RESTful APIs', 'Git'
+    // Programming Languages & Core Technologies
+    const coreSkills = [
+        'JavaScript', 'TypeScript', 'Python', 'C', 'PHP', 'HTML5', 'CSS3', 'SCSS/Sass'
     ];
 
+    // Frontend Technologies
+    const frontendSkills = [
+        'React.js', 'Vue.js', 'AngularJS', 'Next.js', 'Redux', 'jQuery', 'GraphQL', 'Axios'
+    ];
+
+    // Backend Technologies
+    const backendSkills = [
+        'Node.js', 'Express.js', 'Flask', 'FastAPI', 'RESTful APIs', 'Mongoose'
+    ];
+
+    // Cloud, DevOps & Databases
+    const cloudSkills = [
+        'AWS', 'Azure', 'Docker', 'Kubernetes', 'MongoDB', 'MySQL', 'PostgreSQL', 'T-SQL'
+    ];
+
+    // Machine Learning & Data Science
+    const mlSkills = [
+        'NumPy', 'Pandas', 'Scikit-learn', 'Matplotlib', 'Seaborn'
+    ];
+
+    // Design & Tools
     const designSkills = [
-        'UI/UX Design', 'Usability Testing', 'Agile', 'Scrum', 'Balsamiq',
-        'Figma', 'Sketch', 'Adobe XD', 'Moqups', 'WordPress', 'Photoshop',
-        'Canva', 'UI/UX Testing'
+        'Figma', 'Sketch', 'Adobe Creative Suite', 'WordPress', 'Wireframing', 'Prototyping',
+        'UI/UX Design', 'Responsive Design'
+    ];
+
+    // Development Tools & Practices
+    const toolsSkills = [
+        'Git Version Control', 'CI/CD', 'Agile/Scrum', 'SEO', 'Usability Testing', 'Cloudflare'
+    ];
+
+    // Combine all skills for scrolling animations
+    const allTechnicalSkills = [
+        ...coreSkills, ...frontendSkills, ...backendSkills, ...cloudSkills, ...mlSkills
+    ];
+
+    const allDesignTools = [
+        ...designSkills, ...toolsSkills
     ];
 
     useEffect(() => {
@@ -41,11 +74,12 @@ const Skills = () => {
                 <div className="container">
                     <div className="section-header">
                         <span className="section-number">02</span>
-                        <h2>Skills I've Acquired</h2>
+                        <h2>Technical Expertise</h2>
                     </div>
+                    <div className="skills-category-label">Development Stack & Technologies</div>
                     <div className="skills-container">
                         <div className="skills-wrapper">
-                            {[...technicalSkills, ...technicalSkills].map((skill, index) => (
+                            {[...allTechnicalSkills, ...allTechnicalSkills].map((skill, index) => (
                                 <span key={index} className="skill">
                                     {skill}
                                 </span>
@@ -57,9 +91,10 @@ const Skills = () => {
 
             <section className="skills-section2" ref={section2Ref}>
                 <div className="container">
+                    <div className="skills-category-label">Design & Development Tools</div>
                     <div className="skills-container2">
                         <div className="skills-wrapper2">
-                            {[...designSkills, ...designSkills].map((skill, index) => (
+                            {[...allDesignTools, ...allDesignTools].map((skill, index) => (
                                 <span key={index} className="skill2">
                                     {skill}
                                 </span>
