@@ -3,7 +3,7 @@
   background-color: var(--background);
   opacity: 0;
   transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: all 1s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .contact-section.visible {
@@ -12,43 +12,50 @@
 }
 
 .contact-content {
-  max-width: 800px;
+  max-width: 900px;
 }
 
 .contact-content p {
-  font-size: 1.8rem;
-  margin-bottom: 40px;
+  font-size: 1.9rem;
+  margin-bottom: 50px;
   font-family: var(--body-font);
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards 0.2s;
+  animation: fadeInUp 1s cubic-bezier(0.33, 1, 0.68, 1) forwards 0.2s;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .primary-link {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 700;
   display: inline-block;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   font-family: var(--body-font);
   position: relative;
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards 0.4s;
+  animation: fadeInUp 1s cubic-bezier(0.33, 1, 0.68, 1) forwards 0.4s;
   background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.5px;
 }
 
 .primary-link::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -8px;
   left: 0;
   width: 0;
-  height: 3px;
+  height: 4px;
   background: linear-gradient(90deg, var(--accent), var(--blue));
-  transition: width 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: width 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.primary-link:hover {
+  transform: translateX(10px);
 }
 
 .primary-link:hover::after {
@@ -60,18 +67,19 @@
   gap: 30px;
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeInUp 0.8s ease forwards 0.6s;
+  animation: fadeInUp 1s cubic-bezier(0.33, 1, 0.68, 1) forwards 0.6s;
 }
 
 .social-links a {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-family: var(--body-font);
-  padding: 12px 30px;
+  padding: 15px 35px;
   border: 2px solid var(--text);
   border-radius: 50px;
-  transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
   position: relative;
   overflow: hidden;
+  letter-spacing: 0.5px;
 }
 
 .social-links a::before {
@@ -84,20 +92,20 @@
   border-radius: 50%;
   background-color: var(--accent);
   transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
+  transition: width 0.6s cubic-bezier(0.33, 1, 0.68, 1), height 0.6s cubic-bezier(0.33, 1, 0.68, 1);
   z-index: -1;
 }
 
 .social-links a:hover::before {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 320px;
 }
 
 .social-links a:hover {
   color: var(--text);
   border-color: var(--accent);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(255, 60, 0, 0.4);
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(255, 60, 0, 0.5);
 }
 
 .magnetic-button {

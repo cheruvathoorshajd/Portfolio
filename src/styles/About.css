@@ -1,16 +1,17 @@
 .about-section {
-  padding: 100px 0;
+  padding: 120px 0;
   background-color: var(--background);
+  position: relative;
 }
 
 .about-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
+  gap: 70px;
   opacity: 0;
   transform: translateY(50px);
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+  transition: all 1s cubic-bezier(0.33, 1, 0.68, 1);
 }
 
 .about-content.visible {
@@ -23,7 +24,7 @@
   color: var(--text);
   opacity: 0;
   transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.2s;
+  transition: all 1s cubic-bezier(0.33, 1, 0.68, 1) 0.2s;
 }
 
 .about-text.visible {
@@ -32,16 +33,26 @@
 }
 
 .about-text p {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  transition: all 0.3s ease;
+}
+
+.about-text p:hover {
+  color: rgba(255, 255, 255, 1);
+  transform: translateX(5px);
 }
 
 .about-image {
   flex: 1;
   opacity: 0;
   transform: translateX(50px);
-  transition: all 0.8s cubic-bezier(0.33, 1, 0.68, 1) 0.4s;
+  transition: all 1s cubic-bezier(0.33, 1, 0.68, 1) 0.4s;
+  position: relative;
 }
 
 .about-image.visible {
@@ -49,25 +60,58 @@
   transform: translateX(0);
 }
 
+.about-image::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: 15px;
+  bottom: 15px;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  z-index: -1;
+}
+
+.about-image:hover::before {
+  opacity: 0.4;
+  top: -10px;
+  left: -10px;
+  right: 10px;
+  bottom: 10px;
+}
+
 .about-img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  border-radius: 12px;
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.6);
+  transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+  filter: brightness(0.95) contrast(1.05);
 }
 
 .about-img:hover {
-  transform: scale(1.02);
-  box-shadow: 0px 15px 50px rgba(255, 60, 0, 0.3);
+  transform: scale(1.02) translateY(-5px);
+  box-shadow: 0px 20px 60px rgba(255, 60, 0, 0.3);
+  filter: brightness(1) contrast(1.1);
 }
 
 @media screen and (max-width: 968px) {
+  .about-section {
+    padding: 80px 0;
+  }
+
   .about-content {
     flex-direction: column;
+    gap: 50px;
   }
 
   .about-text p {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
+  }
+
+  .about-image::before {
+    display: none;
   }
 }
