@@ -23,7 +23,8 @@ const Hero = () => {
         <section id="home" className="hero-section">
             <div className="container">
                 <h1 className="main-title" ref={titleRef}>
-                    Dennis Sharon Cheruvathoor
+                    <div className="name-line">Dennis Sharon</div>
+                    <div className="name-line">Cheruvathoor</div>
                 </h1>
                 <h3 className="subtitle" ref={subtitleRef}>
                     Designer & Developer
