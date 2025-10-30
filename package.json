@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Professional React Portfolio with smooth animations and modern design",
   "main": "script.js",
-  "homepage": "https://cheruvathoorshajd.github.io/Professional-Portfolio",
+  "homepage": "https://cheruvathoorshajd.github.io/Portfolio",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
