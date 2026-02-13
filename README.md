@@ -170,6 +170,7 @@ Professional-Portfolio/
 - Gradient text animations
 - Social media links with hover effects
 - Email integration
+- updated with custom domain - cheruvathoor.com
 
 ---
 
