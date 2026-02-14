@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -13,18 +13,21 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [fadeIn, setFadeIn] = useState(false);
 
+    const handlePreloaderComplete = useCallback(() => {
+        setLoading(false);
+        setTimeout(() => {
+            setFadeIn(true);
+        }, 100);
+    }, []);
+
     useEffect(() => {
-        // Simulate preloader timing
+        // Preloader runs for 3 seconds
         const timer = setTimeout(() => {
-            setLoading(false);
-            // Trigger fade-in animation for main content
-            setTimeout(() => {
-                setFadeIn(true);
-            }, 100);
-        }, 3000); // 3 seconds for preloader
+            handlePreloaderComplete();
+        }, 3000);
 
         return () => clearTimeout(timer);
-    }, []);
+    }, [handlePreloaderComplete]);
 
     return (
         <div className="App">
