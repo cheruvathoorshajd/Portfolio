@@ -52,7 +52,7 @@ const Contact = () => {
                         onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
                         onMouseLeave={handleMouseLeave}
                     >
-                        csdsharon@gmail.com
+                        dennis@cheruvathoor.com
                     </a>
                     <div className="social-links">
                         <a
