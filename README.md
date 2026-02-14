@@ -315,10 +315,10 @@ This project is licensed under the ISC License.
 
 **Dennis Sharon Cheruvathoor**
 
-- 📧 Email: [csdsharon@gmail.com](mailto:csdsharon@gmail.com)
+- 📧 Email: [dennis@cheruvathoor.com](mailto:csdsharon@gmail.com)
 - 🐙 GitHub: [@cheruvathoorshajd](https://github.com/cheruvathoorshajd)
 - 💼 LinkedIn: [csdsharon](https://www.linkedin.com/in/csdsharon)
-- 🌐 Portfolio: [Live Demo](https://cheruvathoorshajd.github.io/Professional-Portfolio)
+
 
 ---
 
