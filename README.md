@@ -1,4 +1,4 @@
-# 🎨 Professional Portfolio
+# Professional Portfolio
 
 A modern, professional portfolio built with **React 19**, featuring smooth animations, clean design, and optimal performance.
 
@@ -315,7 +315,7 @@ This project is licensed under the ISC License.
 
 **Dennis Sharon Cheruvathoor**
 
-- 📧 Email: [dennis@cheruvathoor.com](mailto:csdsharon@gmail.com)
+- 📧 Email: [dennis@cheruvathoor.com]
 - 🐙 GitHub: [@cheruvathoorshajd](https://github.com/cheruvathoorshajd)
 - 💼 LinkedIn: [csdsharon](https://www.linkedin.com/in/csdsharon)
 
