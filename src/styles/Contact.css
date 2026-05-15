@@ -16,7 +16,7 @@
 }
 
 .contact-content p {
-  font-size: 1.9rem;
+  font-size: clamp(1.3rem, 1.6vw, 2.4rem);
   margin-bottom: 50px;
   font-family: var(--body-font);
   opacity: 0;
@@ -27,7 +27,7 @@
 }
 
 .primary-link {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 3vw, 4.5rem);
   font-weight: 700;
   display: inline-block;
   margin-bottom: 50px;

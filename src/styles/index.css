@@ -10,6 +10,13 @@
   --body-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+:root.light-mode {
+  --background: #f5f5f0;
+  --text: #1a1a1a;
+  --secondary: #e0e0e0;
+  --light-gray: #333333;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -39,6 +46,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body::-webkit-scrollbar {
@@ -58,7 +66,7 @@ html::-webkit-scrollbar {
 
 .container {
   width: 90%;
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -80,6 +88,68 @@ h1, h2, h3, h4, h5 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.5px;
+}
+
+/* Light mode overrides for hardcoded colors */
+.light-mode .subtitle {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.light-mode .about-text p {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.light-mode .about-text p:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.light-mode .about-img {
+  box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.light-mode .about-img:hover {
+  box-shadow: 0px 20px 60px rgba(255, 60, 0, 0.15);
+}
+
+.light-mode .img-placeholder {
+  box-shadow: 0px 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.light-mode .project-item:hover .img-placeholder {
+  box-shadow: 0px 25px 70px rgba(255, 60, 0, 0.15);
+}
+
+.light-mode .project-divider {
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+}
+
+.light-mode .contact-content p {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.light-mode .social-links a {
+  border-color: var(--text);
+}
+
+.light-mode footer {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode footer:hover {
+  border-top-color: rgba(255, 60, 0, 0.3);
+}
+
+.light-mode footer:hover p {
+  color: rgba(0, 0, 0, 1);
+}
+
+.light-mode .main-nav.scrolled {
+  background-color: rgba(245, 245, 240, 0.95);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .scroll-line {
+  background: linear-gradient(to bottom, var(--accent), transparent);
 }
 
 p, span, button, input, textarea {

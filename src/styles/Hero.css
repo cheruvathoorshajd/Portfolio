@@ -8,7 +8,7 @@
 }
 
 .main-title {
-  font-size: 5.5rem;
+  font-size: clamp(3.2rem, 6vw, 9rem);
   margin-bottom: 20px;
   display: block;
   text-align: center;
@@ -27,7 +27,7 @@
 }
 
 .subtitle {
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 2vw, 2.8rem);
   margin-bottom: 60px;
   display: block;
   text-align: center;
@@ -92,7 +92,7 @@
 
 @media screen and (max-width: 768px) {
   .main-title {
-    font-size: 2.5rem;
+    font-size: 3.2rem;
     letter-spacing: -0.5px;
   }
   
@@ -103,7 +103,7 @@
 
 @media screen and (max-width: 480px) {
   .main-title {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     letter-spacing: 0px;
   }
   

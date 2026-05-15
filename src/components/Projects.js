@@ -1,31 +1,46 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ProjectDetail from './ProjectDetail';
 import '../styles/Projects.css';
 
 const Projects = () => {
+    const [selectedProject, setSelectedProject] = useState(null);
+
     const projectsData = [
         {
-            title: 'BizzNex',
+            title: 'Nexus911',
             category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/BizzNex logo.png`,
-            link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
+            image: `${process.env.PUBLIC_URL}/Nexus911.png`,
+            link: '#'
         },
         {
-            title: 'AviaOhr',
-            category: 'Design & Development (On-Going)',
-            image: `${process.env.PUBLIC_URL}/AviaOhr.png`,
-            link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
+            title: 'FinTrack',
+            category: 'Design & Development',
+            image: `${process.env.PUBLIC_URL}/Fintrack.png`,
+            link: '#'
         },
         {
             title: 'VOND.2',
             category: 'Design & Development',
             image: `${process.env.PUBLIC_URL}/VOND.2.png`,
-            link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
+            link: '#'
+        },
+        {
+            title: 'BizzNex',
+            category: 'Design & Development',
+            image: `${process.env.PUBLIC_URL}/BizzNex.png`,
+            link: '#'
+        },
+        {
+            title: 'AviaOhr',
+            category: 'Design & Development (On-Going)',
+            image: `${process.env.PUBLIC_URL}/AviaOhr.png`,
+            link: '#'
         },
         {
             title: 'MedStar',
             category: 'Design & Development',
             image: `${process.env.PUBLIC_URL}/Medstar.png`,
-            link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition'
+            link: '#'
         }
     ];
 
@@ -69,14 +84,12 @@ const Projects = () => {
                                     <div className="img-placeholder">
                                         <img src={project.image} alt={project.title} className="project-img" />
                                     </div>
-                                    <a
-                                        href={project.link}
+                                    <button
                                         className="view-button"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
+                                        onClick={() => setSelectedProject(project)}
                                     >
                                         View
-                                    </a>
+                                    </button>
                                 </div>
                                 <div className="project-details">
                                     <h3 className="project-title">{project.title}</h3>
@@ -88,6 +101,13 @@ const Projects = () => {
                     ))}
                 </div>
             </div>
+
+            {selectedProject && (
+                <ProjectDetail
+                    project={selectedProject}
+                    onClose={() => setSelectedProject(null)}
+                />
+            )}
         </section>
     );
 };

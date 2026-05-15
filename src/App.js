@@ -12,6 +12,19 @@ import './styles/App.css';
 function App() {
     const [loading, setLoading] = useState(true);
     const [fadeIn, setFadeIn] = useState(false);
+    const [lightMode, setLightMode] = useState(false);
+
+    const toggleTheme = useCallback(() => {
+        setLightMode(prev => !prev);
+    }, []);
+
+    useEffect(() => {
+        if (lightMode) {
+            document.documentElement.classList.add('light-mode');
+        } else {
+            document.documentElement.classList.remove('light-mode');
+        }
+    }, [lightMode]);
 
     const handlePreloaderComplete = useCallback(() => {
         setLoading(false);
@@ -30,10 +43,10 @@ function App() {
     }, [handlePreloaderComplete]);
 
     return (
-        <div className="App">
+        <div className={`App ${lightMode ? 'light-mode' : ''}`}>
             {loading && <Preloader onComplete={() => setLoading(false)} />}
             <div className={`main-content ${fadeIn ? 'fade-in' : ''}`}>
-                <Navigation />
+                <Navigation lightMode={lightMode} toggleTheme={toggleTheme} />
                 <main>
                     <Hero />
                     <About />

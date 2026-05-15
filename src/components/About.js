@@ -38,7 +38,7 @@ const About = () => {
                     <div className="about-text" ref={textRef}>
                         <p>
                             Twelve years ago, I first discovered HTML in 7th grade, which left me in awe yet disappointed
-                            by its limitations. Fast-forward to 2025, and I'm pursuing my Master in Information Systems
+                            by its limitations. Fast-forward to 2026, and I'm pursuing my Master in Information Systems
                             at Northeastern University, Boston, MA.
                         </p>
                         <p>

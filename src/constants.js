@@ -12,7 +12,7 @@ export const PERSONAL_INFO = {
 
 export const ABOUT = {
     paragraphs: [
-        "Twelve years ago, I first discovered HTML in 7th grade, which left me in awe yet disappointed by its limitations. Fast-forward to 2025, and I'm pursuing my Master in Information Systems at Northeastern University, Boston, MA.",
+        "Twelve years ago, I first discovered HTML in 7th grade, which left me in awe yet disappointed by its limitations. Fast-forward to 2026, and I'm pursuing my Master in Information Systems at Northeastern University, Boston, MA.",
         "With a passion for technology and design, I'm honing my skills as an aspiring Full-Stack Developer and UI/UX Designer, continuously on the path of learning."
     ],
     image: '/Boston.png',
@@ -58,35 +58,45 @@ export const DESIGN_SKILLS = [
 export const PROJECTS = [
     {
         id: 1,
-        title: 'BizzNex',
+        title: 'Nexus911',
         category: 'Design & Development',
-        image: '/BizzNex logo.png',
-        link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition',
-        description: 'A comprehensive business networking platform'
+        image: '/Nexus911.png',
+        description: 'Autonomous multi-agent 911 dispatch system'
     },
     {
         id: 2,
-        title: 'AviaOhr',
-        category: 'Design & Development (On-Going)',
-        image: '/AviaOhr.png',
-        link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition',
-        description: 'Aviation management system'
+        title: 'FinTrack',
+        category: 'Design & Development',
+        image: '/Fintrack.png',
+        description: 'AI-powered financial tracker'
     },
     {
         id: 3,
         title: 'VOND.2',
         category: 'Design & Development',
         image: '/VOND.2.png',
-        link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition',
-        description: 'Modern web application'
+        description: 'Prescription drug monitoring system'
     },
     {
         id: 4,
+        title: 'BizzNex',
+        category: 'Design & Development',
+        image: '/BizzNex.png',
+        description: 'A comprehensive business networking platform'
+    },
+    {
+        id: 5,
+        title: 'AviaOhr',
+        category: 'Design & Development (On-Going)',
+        image: '/AviaOhr.png',
+        description: 'Digital wellness platform'
+    },
+    {
+        id: 6,
         title: 'MedStar',
         category: 'Design & Development',
         image: '/Medstar.png',
-        link: 'https://csdsharon.my.canva.site/my-silhouette-exhibition',
-        description: 'Healthcare management solution'
+        description: 'Emergency response system'
     }
 ];
 
