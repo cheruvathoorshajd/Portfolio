@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
     email: 'csdsharon@gmail.com',
     github: 'https://github.com/cheruvathoorshajd',
     linkedin: 'https://www.linkedin.com/in/csdsharon',
-    resume: 'https://drive.google.com/file/d/1MCGopgWRm_wx6UcyJp4G_KgLeZFkk_lZ/view?usp=sharing',
+    resume: 'https://drive.google.com/file/d/1SHyL1IOVSYLC_IwNTqRpUccGjPF27kC0/view?usp=sharing',
     avocations: 'https://cheruvathoor.my.canva.site/photography-portfolio'
 };
 
