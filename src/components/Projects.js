@@ -69,7 +69,7 @@ const Projects = () => {
         <section id="work" className="work-section">
             <div className="container">
                 <div className="section-header">
-                    <span className="section-number">03</span>
+                    <span className="section-number">04</span>
                     <h2>Project Work</h2>
                 </div>
                 <div className="project-showcase">

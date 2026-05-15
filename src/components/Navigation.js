@@ -84,6 +84,15 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                         </li>
                         <li style={{ '--i': 1 }}>
                             <a
+                                href="#academics"
+                                className="menu-link"
+                                onClick={(e) => handleNavClick(e, '#academics')}
+                            >
+                                Academics
+                            </a>
+                        </li>
+                        <li style={{ '--i': 2 }}>
+                            <a
                                 href="#work"
                                 className="menu-link"
                                 onClick={(e) => handleNavClick(e, '#work')}
@@ -91,7 +100,7 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                                 Projects
                             </a>
                         </li>
-                        <li style={{ '--i': 2 }}>
+                        <li style={{ '--i': 3 }}>
                             <a
                                 href="https://cheruvathoor.my.canva.site/photography-portfolio"
                                 className="menu-link"
@@ -102,7 +111,7 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                                 Avocations
                             </a>
                         </li>
-                        <li style={{ '--i': 3 }}>
+                        <li style={{ '--i': 4 }}>
                             <a
                                 href="#contact"
                                 className="menu-link"
