@@ -42,8 +42,9 @@ const About = () => {
                             at Northeastern University, Boston, MA.
                         </p>
                         <p>
-                            With a passion for technology and design, I'm honing my skills as an aspiring Full-Stack
-                            Developer and UI/UX Designer, continuously on the path of learning.
+                            Today, I build across the full spectrum — from AI agents and machine learning
+                            pipelines to modern frontend interfaces, scalable backend systems, and cloud-native
+                            infrastructure — all grounded in a sharp eye for design and user experience.
                         </p>
                     </div>
                     <div className="about-image" ref={imageRef}>
