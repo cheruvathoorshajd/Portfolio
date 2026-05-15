@@ -73,7 +73,7 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                     <ul className="menu-links">
                         <li style={{ '--i': 0 }}>
                             <a
-                                href="https://drive.google.com/file/d/1MCGopgWRm_wx6UcyJp4G_KgLeZFkk_lZ/view?usp=sharing"
+                                href="https://drive.google.com/file/d/1SHyL1IOVSYLC_IwNTqRpUccGjPF27kC0/view?usp=sharing"
                                 className="menu-link"
                                 target="_blank"
                                 rel="noopener noreferrer"
