@@ -65,7 +65,7 @@
 .skills-wrapper {
   display: flex;
   gap: 80px;
-  animation: scroll-skills 50s linear infinite;
+  animation: scroll-skills 110s linear infinite;
   white-space: nowrap;
   will-change: transform;
 }

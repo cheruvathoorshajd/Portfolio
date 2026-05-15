@@ -19,7 +19,7 @@ const Education = () => {
             institution: 'Montfort Matriculation Hr. Sec. School',
             degree: 'Higher Secondary',
             location: 'Chennai, India',
-            period: '2019',
+            period: '2005 — 2019',
         },
     ];
 

@@ -5,45 +5,55 @@ const Skills = () => {
     const section1Ref = useRef(null);
     const section2Ref = useRef(null);
 
-    // Programming Languages & Core Technologies
+    // Languages
     const coreSkills = [
-        'JavaScript', 'TypeScript', 'Python', 'C', 'PHP', 'HTML5', 'CSS3', 'SCSS/Sass'
+        'Python', 'JavaScript', 'TypeScript', 'HTML/CSS', 'SCSS/Sass'
+    ];
+
+    // AI / LLM
+    const aiSkills = [
+        'LangChain', 'LangGraph', 'LangSmith', 'Google ADK', 'Multi-Agent Systems', 'RAG', 'ReAct', 'Prompt Engineering'
+    ];
+
+    // ML & Data
+    const mlSkills = [
+        'TensorFlow', 'scikit-learn', 'SDV', 'NumPy', 'Pandas', 'SciPy', 'statsmodels', 'NLI', 'Time-Series Modeling'
     ];
 
     // Frontend Technologies
     const frontendSkills = [
-        'React.js', 'Vue.js', 'AngularJS', 'Next.js', 'Redux', 'jQuery', 'GraphQL', 'Axios'
+        'React.js', 'Next.js', 'Vue.js', 'Redux', 'Tailwind CSS', 'Fluent UI', 'Framer Motion'
     ];
 
     // Backend Technologies
     const backendSkills = [
-        'Node.js', 'Express.js', 'Flask', 'FastAPI', 'RESTful APIs', 'Mongoose'
+        'FastAPI', 'Node.js', 'Express.js', 'Flask', 'Pydantic', 'SQLAlchemy', 'RESTful APIs', 'GraphQL'
     ];
 
-    // Cloud, DevOps & Databases
+    // Cloud & DevOps
     const cloudSkills = [
-        'AWS', 'Azure', 'Docker', 'Kubernetes', 'MongoDB', 'MySQL', 'PostgreSQL', 'T-SQL'
+        'AWS', 'Azure', 'GCP', 'Docker', 'Kubernetes', 'Helm', 'CI/CD', 'Cloudflare'
     ];
 
-    // Machine Learning & Data Science
-    const mlSkills = [
-        'NumPy', 'Pandas', 'Scikit-learn', 'Matplotlib', 'Seaborn'
+    // Databases
+    const dbSkills = [
+        'MongoDB', 'PostgreSQL', 'MySQL', 'T-SQL', 'Supabase', 'Cosmos DB'
     ];
 
     // Design & Tools
     const designSkills = [
-        'Figma', 'Sketch', 'Adobe Creative Suite', 'WordPress', 'Wireframing', 'Prototyping',
+        'Figma', 'Adobe Creative Suite', 'Wireframing', 'Prototyping',
         'UI/UX Design', 'Responsive Design'
     ];
 
     // Development Tools & Practices
     const toolsSkills = [
-        'Git Version Control', 'CI/CD', 'Agile/Scrum', 'SEO', 'Usability Testing', 'Cloudflare'
+        'Git Version Control', 'Agile/Scrum', 'SEO', 'Usability Testing'
     ];
 
     // Combine all skills for scrolling animations
     const allTechnicalSkills = [
-        ...coreSkills, ...frontendSkills, ...backendSkills, ...cloudSkills, ...mlSkills
+        ...coreSkills, ...aiSkills, ...mlSkills, ...frontendSkills, ...backendSkills, ...cloudSkills, ...dbSkills
     ];
 
     const allDesignTools = [
