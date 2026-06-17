@@ -1,0 +1,95 @@
+.process-section {
+  background: var(--background);
+}
+
+.process-intro {
+  font-size: clamp(1.25rem, 1.2vw, 1.8rem);
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  color: var(--text-soft);
+  max-width: 1000px;
+  margin-bottom: 80px;
+  text-align: justify;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.process-intro.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.process-step {
+  position: relative;
+  padding: 32px 24px;
+  border: 1px solid var(--border-faint);
+  border-radius: 4px;
+  background: var(--surface-soft);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+              transform 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+              border-color 0.4s ease,
+              background 0.4s ease;
+}
+
+.process-step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.process-grid.visible .process-step:nth-child(1) { transition-delay: 0s; }
+.process-grid.visible .process-step:nth-child(2) { transition-delay: 0.1s; }
+.process-grid.visible .process-step:nth-child(3) { transition-delay: 0.2s; }
+.process-grid.visible .process-step:nth-child(4) { transition-delay: 0.3s; }
+.process-grid.visible .process-step:nth-child(5) { transition-delay: 0.4s; }
+
+.process-step:hover {
+  border-color: var(--accent);
+  background: rgba(255, 60, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+.process-step-number {
+  font-family: var(--body-font);
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: block;
+}
+
+.process-step-title {
+  font-family: var(--heading-font);
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.process-step-desc {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* light-mode handled by --text-* and --border-* tokens in index.css */
+
+@media screen and (max-width: 968px) {
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+}

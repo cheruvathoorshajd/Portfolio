@@ -1,0 +1,287 @@
+.case-studies-section {
+  background: var(--background);
+}
+
+.case-study-item {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  padding: 80px 0;
+  align-items: center;
+  border-bottom: 1px solid var(--border-faint);
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s cubic-bezier(0.33, 1, 0.68, 1),
+              transform 1s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.case-study-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.case-study-item:nth-child(even) {
+  grid-template-columns: 1.2fr 1fr;
+}
+
+.case-study-item:nth-child(even) .case-study-visual {
+  order: 2;
+}
+
+.case-study-item:nth-child(even) .case-study-info {
+  order: 1;
+}
+
+.case-study-visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #181818 0%, #262626 100%);
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+  border: 1px solid var(--border-faint);
+}
+
+.case-study-visual:hover {
+  border-color: rgba(255, 60, 0, 0.5);
+  box-shadow: 0 30px 80px rgba(255, 60, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.case-study-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-dim);
+  font-family: var(--heading-font);
+  transition: color 0.4s ease;
+}
+
+.case-study-visual:hover .case-study-placeholder {
+  color: var(--accent);
+}
+
+.case-study-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.33, 1, 0.68, 1),
+              filter 0.6s ease;
+  filter: brightness(0.85) saturate(0.9);
+}
+
+.case-study-visual:hover .case-study-img {
+  transform: scale(1.04);
+  filter: brightness(1) saturate(1.05);
+}
+
+.case-study-hover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 24px;
+  background: linear-gradient(to top, rgba(15, 15, 15, 0.85) 0%, rgba(15, 15, 15, 0.2) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  pointer-events: none;
+}
+
+.case-study-hover-overlay span {
+  font-family: var(--body-font);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 600;
+  transform: translateY(8px);
+  transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.case-study-visual:hover .case-study-hover-overlay {
+  opacity: 1;
+}
+
+.case-study-visual:hover .case-study-hover-overlay span {
+  transform: translateY(0);
+}
+
+.case-study-placeholder-num {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.case-study-placeholder-label {
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: var(--body-font);
+}
+
+.case-study-tag {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(10px);
+  color: var(--accent);
+  font-family: var(--body-font);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 60, 0, 0.3);
+}
+
+.case-study-info {
+  padding: 20px 0;
+}
+
+.case-study-number {
+  font-family: var(--body-font);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  display: block;
+}
+
+.case-study-title {
+  font-family: var(--heading-font);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.case-study-tagline {
+  font-family: var(--body-font);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.case-study-summary {
+  font-size: clamp(1rem, 1vw, 1.25rem);
+  line-height: 1.8;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  color: var(--text-soft);
+  margin-bottom: 32px;
+  text-align: justify;
+}
+
+.case-study-meta {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.case-study-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.case-study-meta-label {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.case-study-meta-value {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.case-study-tools {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.case-study-tool {
+  font-family: var(--body-font);
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border: 1px solid var(--border-soft);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.case-study-tool:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.case-study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--body-font);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--text);
+  padding: 12px 26px;
+  border: 1px solid var(--text);
+  border-radius: 30px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.case-study-link:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--background);
+  transform: translateX(4px);
+}
+
+.case-study-link-arrow {
+  transition: transform 0.4s ease;
+}
+
+.case-study-link:hover .case-study-link-arrow {
+  transform: translateX(4px);
+}
+
+/* light-mode handled by --text-* and --border-* tokens in index.css */
+.light-mode .case-study-tag {
+  background: rgba(245, 245, 240, 0.9);
+}
+
+@media screen and (max-width: 968px) {
+  .case-study-item,
+  .case-study-item:nth-child(even) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .case-study-item:nth-child(even) .case-study-visual {
+    order: 0;
+  }
+
+  .case-study-item:nth-child(even) .case-study-info {
+    order: 0;
+  }
+}

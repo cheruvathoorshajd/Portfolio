@@ -1,44 +1,67 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { PERSONAL_INFO } from '../constants';
 import '../styles/Navigation.css';
 
 const Navigation = ({ lightMode, toggleTheme }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [showIcon, setShowIcon] = useState(false);
+    const location = useLocation();
+    const isDev = location.pathname.startsWith('/dev');
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setShowIcon(prev => !prev);
+            setShowIcon((prev) => !prev);
         }, 1500);
         return () => clearInterval(interval);
     }, []);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const closeMenu = () => {
+    // Close menu when route changes
+    useEffect(() => {
         setIsMenuOpen(false);
-    };
+    }, [location.pathname]);
 
-    const handleNavClick = (e, target) => {
+    const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
+
+    const handleAnchorClick = (e, target) => {
         e.preventDefault();
         closeMenu();
-
         const element = document.querySelector(target);
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    const menuItems = isDev
+        ? [
+              { type: 'external', label: 'Resume', href: PERSONAL_INFO.resume },
+              { type: 'anchor', label: 'Academics', target: '#academics' },
+              { type: 'anchor', label: 'Projects', target: '#work' },
+              {
+                  type: 'external',
+                  label: 'Avocations',
+                  href: 'https://cheruvathoor.my.canva.site/photography-portfolio'
+              },
+              { type: 'anchor', label: 'Contact', target: '#contact' },
+              { type: 'route', label: '← Design Work', to: '/' }
+          ]
+        : [
+              { type: 'external', label: 'Resume', href: PERSONAL_INFO.resume },
+              { type: 'anchor', label: 'Case Studies', target: '#case-studies' },
+              { type: 'anchor', label: 'Process', target: '#process' },
+              { type: 'anchor', label: 'Contact', target: '#contact' },
+              { type: 'route', label: 'Engineering →', to: '/dev' }
+          ];
 
     return (
         <>
@@ -46,7 +69,18 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                 <div className="nav-container">
                     <div className="logo" onClick={toggleTheme} title="Toggle theme">
                         <span className={`logo-ds ${showIcon ? 'hidden' : 'visible'}`}>DS</span>
-                        <svg className={`theme-icon ${showIcon ? 'visible' : 'hidden'}`} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                            className={`theme-icon ${showIcon ? 'visible' : 'hidden'}`}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
                             <circle cx="12" cy="12" r="5"></circle>
                             <line x1="12" y1="1" x2="12" y2="3"></line>
                             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -58,11 +92,7 @@ const Navigation = ({ lightMode, toggleTheme }) => {
                             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                         </svg>
                     </div>
-                    <button
-                        className="menu-button"
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                    >
+                    <button className="menu-button" onClick={toggleMenu} aria-label="Toggle menu">
                         {isMenuOpen ? 'Close' : 'Explore'}
                     </button>
                 </div>
@@ -71,55 +101,35 @@ const Navigation = ({ lightMode, toggleTheme }) => {
             <div className={`menu-overlay ${isMenuOpen ? 'active' : ''}`}>
                 <div className="menu-container">
                     <ul className="menu-links">
-                        <li style={{ '--i': 0 }}>
-                            <a
-                                href="https://drive.google.com/file/d/1SHyL1IOVSYLC_IwNTqRpUccGjPF27kC0/view?usp=sharing"
-                                className="menu-link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                            >
-                                Resume
-                            </a>
-                        </li>
-                        <li style={{ '--i': 1 }}>
-                            <a
-                                href="#academics"
-                                className="menu-link"
-                                onClick={(e) => handleNavClick(e, '#academics')}
-                            >
-                                Academics
-                            </a>
-                        </li>
-                        <li style={{ '--i': 2 }}>
-                            <a
-                                href="#work"
-                                className="menu-link"
-                                onClick={(e) => handleNavClick(e, '#work')}
-                            >
-                                Projects
-                            </a>
-                        </li>
-                        <li style={{ '--i': 3 }}>
-                            <a
-                                href="https://cheruvathoor.my.canva.site/photography-portfolio"
-                                className="menu-link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={closeMenu}
-                            >
-                                Avocations
-                            </a>
-                        </li>
-                        <li style={{ '--i': 4 }}>
-                            <a
-                                href="#contact"
-                                className="menu-link"
-                                onClick={(e) => handleNavClick(e, '#contact')}
-                            >
-                                Contact
-                            </a>
-                        </li>
+                        {menuItems.map((item, i) => (
+                            <li key={i} style={{ '--i': i }}>
+                                {item.type === 'external' && (
+                                    <a
+                                        href={item.href}
+                                        className="menu-link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={closeMenu}
+                                    >
+                                        {item.label}
+                                    </a>
+                                )}
+                                {item.type === 'anchor' && (
+                                    <a
+                                        href={item.target}
+                                        className="menu-link"
+                                        onClick={(e) => handleAnchorClick(e, item.target)}
+                                    >
+                                        {item.label}
+                                    </a>
+                                )}
+                                {item.type === 'route' && (
+                                    <Link to={item.to} className="menu-link" onClick={closeMenu}>
+                                        {item.label}
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>

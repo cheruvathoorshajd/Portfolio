@@ -6,7 +6,7 @@
   "homepage": "/",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node scripts/prerender-routes.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -48,6 +48,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-icons": "^5.6.0",
+    "react-router-dom": "^7.18.0",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {

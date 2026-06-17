@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Contact.css';
+import { PERSONAL_INFO } from '../../constants';
+import '../../styles/Contact.css';
 
-const Contact = () => {
+const DesignContact = () => {
     const sectionRef = useRef(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -39,12 +40,12 @@ const Contact = () => {
             <div className="container">
                 <div className="section-header">
                     <span className="section-number">05</span>
-                    <h2>Contact</h2>
+                    <h2>Let's work together</h2>
                 </div>
                 <div className="contact-content">
-                    <p>Curious about me? Feel free to reach out!</p>
+                    <p>Open to UX Designer roles starting August 2026. Available for interviews, portfolio walkthroughs, and conversations.</p>
                     <a
-                        href="mailto:cheruvathoorshaj.d@northeastern.edu"
+                        href={`mailto:${PERSONAL_INFO.email}`}
                         className="magnetic-button primary-link"
                         style={{
                             transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
@@ -53,28 +54,13 @@ const Contact = () => {
                         onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
                         onMouseLeave={handleMouseLeave}
                     >
-                        cheruvathoorshaj.d@northeastern.edu
+                        {PERSONAL_INFO.email}
                     </a>
                     <div className="social-links">
-                        <a
-                            href="https://github.com/cheruvathoorshajd"
-                            className="magnetic-button"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Github
-                        </a>
-                        <a
-                            href="https://www.linkedin.com/in/csdsharon"
-                            className="magnetic-button"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            LinkedIn
-                        </a>
-                        <Link to="/" className="magnetic-button">
-                            ← Design Work
-                        </Link>
+                        <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href={PERSONAL_INFO.resume} target="_blank" rel="noopener noreferrer">Resume</a>
+                        <Link to="/dev">Engineering Portfolio →</Link>
                     </div>
                 </div>
             </div>
@@ -82,4 +68,4 @@ const Contact = () => {
     );
 };
 
-export default Contact;
+export default DesignContact;
