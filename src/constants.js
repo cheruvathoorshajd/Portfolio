@@ -127,8 +127,25 @@ export const ABOUT_PILLARS = [
 
 export const CASE_STUDIES = [
     {
-        id: 'paypal',
+        id: 'veritas',
         number: '01',
+        tag: 'AI Product UX',
+        title: 'VERITAS',
+        tagline: 'Designing trust into a black box — real-time fact-checking you can watch, question, and believe.',
+        summary: 'A 0→1 AI product that lets anyone drop a conversation — spoken, uploaded, or pasted — and watch it get fact-checked in real time. The hard design problem wasn\'t the checking; it was making a slow, uncertain, six-stage AI pipeline feel legible, honest, and fast enough to trust in the moment. Owned research, IA, interaction, visual design, and the front-end build of a fully bespoke system with zero UI kit — engineered around one goal: calibrated trust that tracks the evidence.',
+        role: 'Product Designer · Front-end',
+        duration: '2025',
+        context: 'Solo Project · 0→1 AI Product',
+        tools: ['Figma', 'Next.js', 'CSS', 'Design Systems'],
+        image: '/veritas.svg',
+        link: '/veritas.html',
+        linkLabel: 'Open full case study',
+        ctaTitle: 'Full Case Study',
+        ctaCopy: 'The complete case study — problem framing, personas, the five design principles, key design decisions, the bespoke design system, testing, and outcomes — lives as a standalone editorial page. Open it in a new tab to read the work in full.'
+    },
+    {
+        id: 'paypal',
+        number: '02',
         tag: 'Fintech UX',
         title: 'PayPal',
         tagline: 'Rebuilding trust into every step of the payment flow.',
@@ -142,7 +159,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'lyft',
-        number: '02',
+        number: '03',
         tag: 'Mobility UX',
         title: 'Lyft',
         tagline: 'Designing a ride experience that earns trust in the first three taps.',
@@ -156,7 +173,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'hm',
-        number: '03',
+        number: '04',
         tag: 'E-Commerce UX',
         title: 'H&M',
         tagline: 'Reimagining product discovery and checkout for a global fashion retailer.',
@@ -170,7 +187,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'mkbhd',
-        number: '04',
+        number: '05',
         tag: 'Brand & Creator UX',
         title: 'MKBHD',
         tagline: 'Translating one of tech\'s most recognizable creator brands into a digital experience.',
@@ -184,7 +201,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'warnerbros',
-        number: '05',
+        number: '06',
         tag: 'Media & Entertainment UX',
         title: 'Warner Bros',
         tagline: 'Designing the next generation of content discovery for a legacy entertainment brand.',

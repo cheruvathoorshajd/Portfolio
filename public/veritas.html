@@ -1,0 +1,2863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VERITAS — UX Case Study · Dennis Sharon C. S.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,300;1,6..72,400&display=swap"
+        rel="stylesheet">
+    <style>
+        /* =========================================================
+     VERITAS — Case Study
+     System voice: Space Mono (the machine)
+     Human voice:  Newsreader (the editorial judgment)
+     Palette + verdict semantics lifted from the product itself.
+     ========================================================= */
+
+        :root {
+            --bg: #0b0a09;
+            --bg-raise: #100f0e;
+            --bg-card: #151312;
+            --bg-card-2: #1a1817;
+
+            --ink: #ece7df;
+            --ink-2: #b6b0a6;
+            --ink-3: #8a847a;
+            --muted: #6f6960;
+            --faint: #453f39;
+            --rule: #252119;
+            --rule-2: #332e27;
+
+            --coral: #ff4a37;
+            /* VERITAS accent · FALSE */
+            --coral-dim: #c33a2b;
+            --coral-ghost: rgba(255, 74, 55, .14);
+            --teal: #3ac6ae;
+            /* VERIFIED */
+            --amber: #e0a63e;
+            /* MISLEADING */
+            --slate: #7f8a97;
+            /* UNVERIFIED */
+
+            --maxw: 1200px;
+            --read: 66ch;
+            --pad: clamp(20px, 5vw, 88px);
+
+            --mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+            --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+            --step: 1.28;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto
+            }
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--serif);
+            font-size: 19px;
+            line-height: 1.62;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        /* faint film-grain / vignette to match the product's darkroom feel */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(120% 90% at 50% -10%, transparent 55%, rgba(0, 0, 0, .55) 100%);
+            mix-blend-mode: multiply;
+        }
+
+        ::selection {
+            background: var(--coral-ghost);
+            color: #fff
+        }
+
+        a {
+            color: inherit
+        }
+
+        /* ---------- shared type primitives ---------- */
+        .mono {
+            font-family: var(--mono)
+        }
+
+        .eyebrow {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .34em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .num {
+            font-family: var(--mono);
+            color: var(--coral);
+            font-weight: 700;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--serif);
+            font-weight: 400;
+            line-height: 1.08;
+            margin: 0
+        }
+
+        p {
+            margin: 0 0 1.05em
+        }
+
+        strong {
+            font-weight: 600;
+            color: #fff
+        }
+
+        em {
+            font-style: italic;
+            color: var(--ink)
+        }
+
+        .read {
+            max-width: var(--read)
+        }
+
+        .lead {
+            font-size: 1.32rem;
+            line-height: 1.5;
+            color: var(--ink);
+            font-weight: 300
+        }
+
+        .dim {
+            color: var(--ink-2)
+        }
+
+        .small {
+            font-size: .82rem;
+            line-height: 1.5;
+            color: var(--ink-3)
+        }
+
+        /* ---------- layout scaffold ---------- */
+        .wrap {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding-left: var(--pad);
+            padding-right: var(--pad)
+        }
+
+        section {
+            position: relative
+        }
+
+        .band {
+            padding: clamp(64px, 9vw, 132px) 0;
+            border-top: 1px solid var(--rule)
+        }
+
+        .band:first-of-type {
+            border-top: 0
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
+            margin-bottom: 44px;
+            flex-wrap: wrap
+        }
+
+        .sec-head .tag {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: .24em;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .sec-head h2 {
+            font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+            letter-spacing: -.01em
+        }
+
+        .sec-head .kicker {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .24em;
+            color: var(--coral);
+            text-transform: uppercase;
+            margin-left: auto;
+            padding-top: 6px
+        }
+
+        /* =========================================================
+     TOP BAR — echoes the product's app header
+     ========================================================= */
+        header.topbar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(11, 10, 9, .82);
+            backdrop-filter: blur(9px);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .topbar .row {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 13px var(--pad);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .wordmark {
+            font-family: var(--mono);
+            font-weight: 700;
+            letter-spacing: .42em;
+            font-size: 15px;
+            color: var(--ink);
+            padding-right: 2px
+        }
+
+        .topbar .divider {
+            width: 1px;
+            height: 16px;
+            background: var(--rule-2)
+        }
+
+        .topbar .meta {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .22em;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .topbar .meta .hot {
+            color: var(--coral)
+        }
+
+        .topbar .right {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
+            align-items: center
+        }
+
+        .topbar .right a {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ink-3);
+            text-decoration: none;
+            transition: color .2s
+        }
+
+        .topbar .right a:hover {
+            color: var(--coral)
+        }
+
+        @media(max-width:720px) {
+            .topbar .meta.opt {
+                display: none
+            }
+
+            .topbar .right a.opt {
+                display: none
+            }
+        }
+
+        /* =========================================================
+     HERO — the thesis: a claim becoming a verdict
+     ========================================================= */
+        .hero {
+            padding: clamp(72px, 12vh, 150px) 0 clamp(56px, 8vw, 104px)
+        }
+
+        .hero .eyebrow {
+            margin-bottom: 30px
+        }
+
+        .hero h1 {
+            font-size: clamp(3.1rem, 9vw, 7.4rem);
+            letter-spacing: -.03em;
+            line-height: .92;
+            margin-bottom: 26px;
+        }
+
+        .hero h1 .sub {
+            display: block;
+            font-family: var(--mono);
+            font-weight: 400;
+            font-size: clamp(.7rem, 2.1vw, 1.05rem);
+            letter-spacing: .5em;
+            color: var(--coral);
+            margin-top: 26px;
+            text-transform: uppercase
+        }
+
+        .hero .tagline {
+            max-width: 34ch;
+            font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+            line-height: 1.42;
+            color: var(--ink-2);
+            font-weight: 300
+        }
+
+        /* the live claim→verdict artifact */
+        .transform {
+            margin-top: clamp(48px, 7vw, 80px);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: clamp(16px, 3vw, 40px);
+            align-items: center;
+        }
+
+        @media(max-width:860px) {
+            .transform {
+                grid-template-columns: 1fr;
+                gap: 20px
+            }
+        }
+
+        .claim-src {
+            border: 1px solid var(--rule-2);
+            background: var(--bg-card);
+            padding: 26px 28px;
+            position: relative;
+        }
+
+        .claim-src .who {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .2em;
+            color: var(--slate);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        .dotmark {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--slate);
+            display: inline-block
+        }
+
+        .claim-src .said {
+            font-size: 1.24rem;
+            line-height: 1.4;
+            color: var(--ink)
+        }
+
+        .arrowrail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 9px;
+            color: var(--muted)
+        }
+
+        .arrowrail .lbl {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .28em;
+            text-transform: uppercase
+        }
+
+        .arrowrail .glyph {
+            font-family: var(--mono);
+            font-size: 22px;
+            color: var(--coral);
+            line-height: 1
+        }
+
+        @media(max-width:860px) {
+            .arrowrail {
+                flex-direction: row
+            }
+
+            .arrowrail .glyph {
+                transform: rotate(90deg)
+            }
+        }
+
+        .verdict-card {
+            border: 1px solid var(--coral-dim);
+            background: linear-gradient(180deg, rgba(255, 74, 55, .08), rgba(255, 74, 55, .02));
+            padding: 24px 26px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verdict-card .vhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px
+        }
+
+        .badge {
+            font-family: var(--mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: .16em;
+            padding: 5px 11px;
+            border: 1px solid currentColor;
+            display: inline-flex;
+            gap: 7px;
+            align-items: center;
+            text-transform: uppercase
+        }
+
+        .badge.false {
+            color: var(--coral)
+        }
+
+        .badge.verified {
+            color: var(--teal)
+        }
+
+        .badge.misleading {
+            color: var(--amber)
+        }
+
+        .badge.unverified {
+            color: var(--slate)
+        }
+
+        .conf {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--ink-2);
+            letter-spacing: .08em
+        }
+
+        .conf b {
+            color: #fff
+        }
+
+        .confbar {
+            height: 3px;
+            background: var(--rule-2);
+            margin: 14px 0 16px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .confbar>i {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--coral);
+            width: 0;
+            transition: width 1.2s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .verdict-card .why {
+            font-size: .95rem;
+            line-height: 1.5;
+            color: var(--ink-2)
+        }
+
+        .verdict-card .src {
+            margin-top: 14px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .12em;
+            color: var(--muted);
+            text-transform: uppercase;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .verdict-card .src span {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center
+        }
+
+        .tick {
+            color: var(--teal)
+        }
+
+        .cross {
+            color: var(--coral)
+        }
+
+        /* record pulse dot (hero ambient) */
+        .rec {
+            position: relative;
+            width: 9px;
+            height: 9px
+        }
+
+        .rec i {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: var(--coral)
+        }
+
+        .rec::after {
+            content: "";
+            position: absolute;
+            inset: -6px;
+            border: 1px solid var(--coral);
+            border-radius: 50%;
+            opacity: .5;
+            animation: ping 2.4s ease-out infinite
+        }
+
+        @keyframes ping {
+            0% {
+                transform: scale(.6);
+                opacity: .6
+            }
+
+            80%,
+            100% {
+                transform: scale(1.9);
+                opacity: 0
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .rec::after {
+                animation: none;
+                opacity: .3
+            }
+        }
+
+        /* ---------- at-a-glance meta strip ---------- */
+        .glance {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0;
+            border: 1px solid var(--rule);
+        }
+
+        @media(max-width:900px) {
+            .glance {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .glance .cell {
+            padding: 22px 22px;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .glance .cell:nth-child(6n) {
+            border-right: 0
+        }
+
+        @media(max-width:900px) {
+            .glance .cell {
+                border-right: 1px solid var(--rule)
+            }
+
+            .glance .cell:nth-child(2n) {
+                border-right: 0
+            }
+        }
+
+        .glance .k {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .2em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 9px
+        }
+
+        .glance .v {
+            font-family: var(--mono);
+            font-size: 13.5px;
+            color: var(--ink);
+            line-height: 1.45
+        }
+
+        .glance .v.accent {
+            color: var(--coral)
+        }
+
+        /* =========================================================
+     PIPELINE RAIL — recurring structural signature
+     ========================================================= */
+        .rail {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0;
+            margin-top: 8px;
+            border-top: 1px solid var(--rule-2);
+        }
+
+        @media(max-width:820px) {
+            .rail {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media(max-width:480px) {
+            .rail {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .rail .st {
+            padding: 20px 16px;
+            border-right: 1px solid var(--rule);
+            position: relative
+        }
+
+        .rail .st:last-child {
+            border-right: 0
+        }
+
+        .rail .st .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--faint);
+            margin-bottom: 14px;
+            transition: background .4s, box-shadow .4s
+        }
+
+        .rail .st.on .dot {
+            background: var(--coral);
+            box-shadow: 0 0 0 4px var(--coral-ghost)
+        }
+
+        .rail .st .n {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: .12em
+        }
+
+        .rail .st .lbl {
+            font-family: var(--mono);
+            font-size: 12.5px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ink-2);
+            margin-top: 3px
+        }
+
+        .rail .st.on .lbl {
+            color: var(--ink)
+        }
+
+        .rail .st .desc {
+            font-size: .78rem;
+            color: var(--ink-3);
+            line-height: 1.4;
+            margin-top: 9px;
+            font-family: var(--serif)
+        }
+
+        /* =========================================================
+     GENERIC BLOCKS
+     ========================================================= */
+        .cols2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(28px, 4vw, 64px)
+        }
+
+        @media(max-width:820px) {
+            .cols2 {
+                grid-template-columns: 1fr;
+                gap: 36px
+            }
+        }
+
+        .figure {
+            border: 1px solid var(--rule-2);
+            background: var(--bg-raise);
+            padding: clamp(20px, 3vw, 34px)
+        }
+
+        .figure .cap {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid var(--rule)
+        }
+
+        .figure .cap b {
+            color: var(--ink-2);
+            font-weight: 700
+        }
+
+        /* persona cards */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px
+        }
+
+        @media(max-width:820px) {
+            .persona-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .persona {
+            border: 1px solid var(--rule-2);
+            background: var(--bg-card);
+            padding: 28px
+        }
+
+        .persona .role {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-bottom: 6px
+        }
+
+        .persona h4 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            letter-spacing: -.01em
+        }
+
+        .persona .jtbd {
+            font-style: italic;
+            color: var(--ink);
+            border-left: 2px solid var(--coral-dim);
+            padding-left: 16px;
+            margin: 0 0 18px;
+            line-height: 1.5
+        }
+
+        .persona .painlist {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        .persona .painlist li {
+            font-family: var(--serif);
+            font-size: .94rem;
+            color: var(--ink-2);
+            padding: 8px 0 8px 20px;
+            position: relative;
+            border-top: 1px solid var(--rule)
+        }
+
+        .persona .painlist li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: var(--muted);
+            font-family: var(--mono)
+        }
+
+        /* principle list */
+        .principles {
+            border-top: 1px solid var(--rule)
+        }
+
+        .principle {
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            gap: 24px;
+            padding: 28px 0;
+            border-bottom: 1px solid var(--rule);
+            align-items: start
+        }
+
+        @media(max-width:640px) {
+            .principle {
+                grid-template-columns: 1fr;
+                gap: 10px
+            }
+        }
+
+        .principle .pn {
+            font-family: var(--mono);
+            font-size: 14px;
+            color: var(--coral);
+            font-weight: 700;
+            letter-spacing: .05em;
+            padding-top: 6px
+        }
+
+        .principle h4 {
+            font-size: 1.4rem;
+            margin-bottom: 9px;
+            letter-spacing: -.01em
+        }
+
+        .principle p {
+            margin: 0;
+            color: var(--ink-2);
+            font-size: 1.02rem
+        }
+
+        .principle .lp {
+            display: inline-block;
+            margin-top: 12px;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--rule-2);
+            padding: 4px 8px
+        }
+
+        /* decision block */
+        .decision {
+            padding: clamp(38px, 6vw, 68px) 0;
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .decision:last-child {
+            border-bottom: 0
+        }
+
+        .decision>.dhead {
+            display: flex;
+            gap: 16px;
+            align-items: baseline;
+            margin-bottom: 8px
+        }
+
+        .decision .dnum {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--coral);
+            font-weight: 700;
+            letter-spacing: .1em
+        }
+
+        .decision h3 {
+            font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+            letter-spacing: -.01em;
+            margin-bottom: 22px
+        }
+
+        .tension {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 24px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .tension b {
+            color: var(--ink-2);
+            font-weight: 400
+        }
+
+        /* wide screenshot-style frame */
+        .screen {
+            border: 1px solid var(--rule-2);
+            background: #0d0c0b;
+            padding: 0;
+            margin: 6px 0;
+            overflow: hidden
+        }
+
+        .screen .chrome {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--rule);
+            background: var(--bg-raise)
+        }
+
+        .screen .chrome .wm {
+            font-family: var(--mono);
+            font-weight: 700;
+            letter-spacing: .3em;
+            font-size: 11px;
+            color: var(--ink-2)
+        }
+
+        .screen .chrome .st {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .16em;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .screen .chrome .st .n {
+            color: var(--coral)
+        }
+
+        .screen .body {
+            padding: clamp(22px, 3.5vw, 40px)
+        }
+
+        /* transcript demo (speaker colour coding) */
+        .tline {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--rule);
+            align-items: baseline
+        }
+
+        .spk {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border: 1px solid currentColor;
+            white-space: nowrap
+        }
+
+        .spk.a {
+            color: var(--teal)
+        }
+
+        .spk.b {
+            color: var(--amber)
+        }
+
+        .tline .txt {
+            font-size: 1.05rem;
+            color: var(--ink);
+            line-height: 1.45
+        }
+
+        .tline .txt mark {
+            background: var(--coral-ghost);
+            color: var(--ink);
+            padding: 1px 4px;
+            border-bottom: 1px solid var(--coral-dim)
+        }
+
+        .tline .flag {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-left: 8px;
+            white-space: nowrap
+        }
+
+        /* toggle mock */
+        .togglemock {
+            display: inline-flex;
+            border: 1px solid var(--rule-2);
+            margin: 4px 0 0
+        }
+
+        .togglemock span {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            padding: 9px 16px;
+            color: var(--ink-3)
+        }
+
+        .togglemock span.act {
+            background: var(--ink);
+            color: var(--bg);
+            font-weight: 700
+        }
+
+        /* design-system swatches */
+        .swatches {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            border: 1px solid var(--rule)
+        }
+
+        @media(max-width:720px) {
+            .swatches {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .sw {
+            padding: 0;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .sw:nth-child(5n) {
+            border-right: 0
+        }
+
+        @media(max-width:720px) {
+            .sw {
+                border-right: 1px solid var(--rule)
+            }
+
+            .sw:nth-child(2n) {
+                border-right: 0
+            }
+        }
+
+        .sw .chip {
+            height: 64px
+        }
+
+        .sw .info {
+            padding: 12px 14px
+        }
+
+        .sw .info .role {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .1em;
+            color: var(--ink);
+            text-transform: uppercase
+        }
+
+        .sw .info .hex {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 3px
+        }
+
+        .sw .info .use {
+            font-size: .78rem;
+            color: var(--ink-3);
+            margin-top: 6px;
+            line-height: 1.35
+        }
+
+        /* type specimen */
+        .specimen {
+            border: 1px solid var(--rule-2);
+            background: var(--bg-raise);
+            padding: 30px
+        }
+
+        .specimen .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--rule);
+            gap: 20px;
+            flex-wrap: wrap
+        }
+
+        .specimen .row:last-child {
+            border-bottom: 0
+        }
+
+        .specimen .role {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            min-width: 120px
+        }
+
+        .specimen .samp-mono {
+            font-family: var(--mono);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--ink)
+        }
+
+        .specimen .samp-serif {
+            font-family: var(--serif);
+            color: var(--ink)
+        }
+
+        /* iteration before/after */
+        .iter {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--rule-2)
+        }
+
+        @media(max-width:720px) {
+            .iter {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .iter .side {
+            padding: 24px 26px
+        }
+
+        .iter .side.before {
+            border-right: 1px solid var(--rule)
+        }
+
+        @media(max-width:720px) {
+            .iter .side.before {
+                border-right: 0;
+                border-bottom: 1px solid var(--rule)
+            }
+        }
+
+        .iter .tg {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            margin-bottom: 12px
+        }
+
+        .iter .before .tg {
+            color: var(--slate)
+        }
+
+        .iter .after .tg {
+            color: var(--teal)
+        }
+
+        .iter p {
+            font-size: .96rem;
+            color: var(--ink-2);
+            margin: 0
+        }
+
+        /* metrics */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            border: 1px solid var(--rule)
+        }
+
+        @media(max-width:720px) {
+            .metrics {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .metric {
+            padding: 28px 24px;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .metric:nth-child(4n) {
+            border-right: 0
+        }
+
+        @media(max-width:720px) {
+            .metric {
+                border-right: 1px solid var(--rule)
+            }
+
+            .metric:nth-child(2n) {
+                border-right: 0
+            }
+        }
+
+        .metric .big {
+            font-family: var(--mono);
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -.02em;
+            line-height: 1
+        }
+
+        .metric .big.accent {
+            color: var(--coral)
+        }
+
+        .metric .lab {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 12px;
+            line-height: 1.4
+        }
+
+        .metric .foot {
+            font-size: .76rem;
+            color: var(--ink-3);
+            margin-top: 8px;
+            line-height: 1.4
+        }
+
+        /* LP mapping */
+        .lp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border: 1px solid var(--rule)
+        }
+
+        @media(max-width:720px) {
+            .lp-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .lp {
+            padding: 26px 26px;
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .lp:nth-child(2n) {
+            border-right: 0
+        }
+
+        @media(max-width:720px) {
+            .lp {
+                border-right: 0
+            }
+        }
+
+        .lp .name {
+            font-family: var(--mono);
+            font-size: 12px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--coral);
+            margin-bottom: 12px
+        }
+
+        .lp p {
+            font-size: .96rem;
+            color: var(--ink-2);
+            margin: 0
+        }
+
+        /* callout note */
+        .note {
+            border: 1px solid var(--rule-2);
+            border-left: 2px solid var(--amber);
+            background: var(--bg-raise);
+            padding: 18px 22px;
+            margin: 26px 0
+        }
+
+        .note .nt {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 8px
+        }
+
+        .note p {
+            font-size: .9rem;
+            color: var(--ink-2);
+            margin: 0
+        }
+
+        /* pull quote */
+        .pull {
+            font-family: var(--serif);
+            font-style: italic;
+            font-size: clamp(1.5rem, 3.6vw, 2.4rem);
+            line-height: 1.28;
+            color: var(--ink);
+            max-width: 22ch;
+            margin: 8px 0
+        }
+
+        .pull .accent {
+            color: var(--coral);
+            font-style: normal
+        }
+
+        /* footer */
+        footer {
+            border-top: 1px solid var(--rule);
+            padding: clamp(56px, 8vw, 96px) 0 64px
+        }
+
+        footer .fmark {
+            font-family: var(--mono);
+            font-weight: 700;
+            letter-spacing: .4em;
+            font-size: clamp(2rem, 7vw, 4.4rem);
+            color: var(--ink);
+            line-height: 1;
+            margin-bottom: 8px
+        }
+
+        footer .ftag {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 40px
+        }
+
+        footer .fgrid {
+            display: flex;
+            gap: 44px;
+            flex-wrap: wrap;
+            font-family: var(--mono);
+            font-size: 12px
+        }
+
+        footer .fgrid .fk {
+            color: var(--muted);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            font-size: 10px;
+            margin-bottom: 6px
+        }
+
+        footer .fgrid .fv {
+            color: var(--ink-2)
+        }
+
+        footer .fgrid a {
+            color: var(--ink-2);
+            text-decoration: none;
+            border-bottom: 1px solid var(--rule-2)
+        }
+
+        footer .fgrid a:hover {
+            color: var(--coral)
+        }
+
+        /* reveal on scroll */
+        .rev {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .rev.in {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .rev {
+                opacity: 1;
+                transform: none;
+                transition: none
+            }
+        }
+
+        /* focus visibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--coral);
+            outline-offset: 3px
+        }
+
+        .spacer-s {
+            height: 22px
+        }
+
+        .spacer {
+            height: 40px
+        }
+
+        .spacer-l {
+            height: 64px
+        }
+
+        /* =========================================================
+     D1 — input-model concept comparison + shipped deck
+     ========================================================= */
+        .concepts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 8px 0 0
+        }
+
+        @media(max-width:820px) {
+            .concepts {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .concept {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--rule-2);
+            background: var(--bg-card);
+            overflow: hidden;
+            transition: transform .3s ease, border-color .3s ease
+        }
+
+        .concept.win {
+            border-color: var(--coral-dim);
+            background: linear-gradient(180deg, rgba(255, 74, 55, .055), transparent 60%)
+        }
+
+        .concept .chead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .concept .cno {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .2em;
+            color: var(--muted);
+            text-transform: uppercase
+        }
+
+        .concept .cstatus {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            padding: 4px 9px;
+            border: 1px solid var(--rule-2);
+            color: var(--ink-3)
+        }
+
+        .concept.win .cstatus {
+            color: var(--coral);
+            border-color: var(--coral-dim);
+            background: var(--coral-ghost)
+        }
+
+        .cdiag {
+            height: 128px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(rgba(255, 255, 255, .014), rgba(255, 255, 255, .014))
+        }
+
+        .concept.win .cdiag {
+            background: linear-gradient(rgba(255, 74, 55, .03), transparent)
+        }
+
+        .cbody {
+            padding: 18px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1
+        }
+
+        .cbody h4 {
+            font-family: var(--mono);
+            font-size: 13px;
+            letter-spacing: .09em;
+            text-transform: uppercase;
+            color: var(--ink);
+            margin: 0 0 9px
+        }
+
+        .cbody p {
+            font-size: .86rem;
+            line-height: 1.5;
+            color: var(--ink-2);
+            margin: 0
+        }
+
+        .cnote {
+            margin-top: 14px;
+            padding-top: 13px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .03em;
+            line-height: 1.55;
+            color: var(--muted);
+            border-top: 1px solid var(--rule);
+            display: flex;
+            gap: 8px
+        }
+
+        .cnote .mk {
+            color: var(--amber);
+            flex: none
+        }
+
+        .concept.win .cnote {
+            color: var(--ink-3)
+        }
+
+        .concept.win .cnote .mk {
+            color: var(--coral)
+        }
+
+        /* diagram A — one unified surface */
+        .diag-drop {
+            width: 118px;
+            height: 76px;
+            border: 1.5px dashed var(--rule-2);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-family: var(--mono);
+            font-size: 22px;
+            font-weight: 700
+        }
+
+        /* diagram B — mixer faders */
+        .diag-mixer {
+            display: flex;
+            gap: 22px;
+            align-items: center;
+            height: 80px
+        }
+
+        .diag-mixer .track {
+            width: 2px;
+            height: 72px;
+            background: var(--rule-2);
+            border-radius: 2px;
+            position: relative
+        }
+
+        .diag-mixer .track i {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 6px;
+            background: var(--ink-3);
+            border-radius: 1px
+        }
+
+        .diag-mixer .track.t1 i {
+            top: 16px
+        }
+
+        .diag-mixer .track.t2 i {
+            top: 40px
+        }
+
+        .diag-mixer .track.t3 i {
+            top: 28px
+        }
+
+        /* diagram C — fanned deck (the signature) */
+        .diag-deck {
+            position: relative;
+            width: 130px;
+            height: 92px
+        }
+
+        .diag-deck .dc {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 42px;
+            height: 62px;
+            border: 1px solid var(--rule-2);
+            background: var(--bg-raise);
+            border-radius: 3px
+        }
+
+        .diag-deck .dc1 {
+            transform: translate(-50%, -50%) rotate(-13deg) translateX(-27px)
+        }
+
+        .diag-deck .dc3 {
+            transform: translate(-50%, -50%) rotate(13deg) translateX(27px)
+        }
+
+        .diag-deck .dc2 {
+            transform: translate(-50%, -54%);
+            border-color: var(--coral-dim);
+            background: linear-gradient(180deg, rgba(255, 74, 55, .16), transparent);
+            z-index: 2
+        }
+
+        .diag-deck .dc2::after {
+            content: "";
+            position: absolute;
+            top: 9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--coral);
+            box-shadow: 0 0 8px 1px rgba(255, 74, 55, .6)
+        }
+
+        /* shipped-UI fanned deck stage (echoes the real landing screen) */
+        .deckstage {
+            position: relative;
+            height: clamp(300px, 42vw, 384px);
+            background: radial-gradient(130% 90% at 50% 128%, rgba(255, 74, 55, .06), transparent 58%), #0a0908;
+            overflow: hidden;
+            border: 1px solid var(--rule-2)
+        }
+
+        .deckstage .swm {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-family: var(--mono);
+            font-weight: 700;
+            letter-spacing: .42em;
+            font-size: 12px;
+            color: var(--ink-2);
+            z-index: 10
+        }
+
+        .deckstage .scta {
+            position: absolute;
+            bottom: 16px;
+            right: 20px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .26em;
+            text-transform: uppercase;
+            color: var(--muted);
+            z-index: 10
+        }
+
+        .fcard {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: clamp(150px, 20vw, 182px);
+            height: clamp(210px, 28vw, 244px);
+            border: 1px solid var(--rule-2);
+            background: linear-gradient(180deg, #151312, #0e0d0c);
+            border-radius: 4px;
+            box-shadow: 0 32px 60px rgba(0, 0, 0, .55);
+            padding: 18px;
+            display: flex;
+            flex-direction: column
+        }
+
+        .fcard .fno {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .22em;
+            color: var(--muted)
+        }
+
+        .fcard .fwm {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-family: var(--mono);
+            font-size: 8px;
+            letter-spacing: .3em;
+            color: var(--faint)
+        }
+
+        .fcard .fmotif {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 0
+        }
+
+        .fcard .ftitle {
+            font-family: var(--mono);
+            font-size: 14px;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+            color: var(--ink);
+            margin-bottom: 6px
+        }
+
+        .fcard .fdesc {
+            font-size: .72rem;
+            line-height: 1.42;
+            color: var(--ink-3)
+        }
+
+        .fcard.left {
+            transform: translate(-50%, -50%) rotate(-9deg) translate(-138px, 10px);
+            z-index: 1
+        }
+
+        .fcard.right {
+            transform: translate(-50%, -50%) rotate(9deg) translate(138px, 10px);
+            z-index: 1
+        }
+
+        .fcard.center {
+            transform: translate(-50%, -53%);
+            z-index: 3;
+            border-color: #2b2723
+        }
+
+        @media(max-width:560px) {
+            .fcard.left {
+                transform: translate(-50%, -50%) rotate(-7deg) translate(-86px, 10px)
+            }
+
+            .fcard.right {
+                transform: translate(-50%, -50%) rotate(7deg) translate(86px, 10px)
+            }
+        }
+
+        /* motifs */
+        .mic-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px
+        }
+
+        .mic-dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: var(--coral);
+            box-shadow: 0 0 26px 6px rgba(255, 74, 55, .5);
+            position: relative
+        }
+
+        .mic-dot::after {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: .9
+        }
+
+        .wave {
+            display: flex;
+            align-items: flex-end;
+            gap: 2.5px;
+            height: 18px
+        }
+
+        .wave i {
+            width: 2px;
+            background: var(--coral);
+            opacity: .85;
+            border-radius: 1px
+        }
+
+        .doc-mini {
+            width: 54px;
+            height: 68px;
+            border: 1px solid var(--rule-2);
+            background: var(--bg-raise);
+            padding: 11px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative
+        }
+
+        .doc-mini::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 13px;
+            height: 13px;
+            background: #151312;
+            border-left: 1px solid var(--rule-2);
+            border-bottom: 1px solid var(--rule-2)
+        }
+
+        .doc-mini span {
+            height: 2px;
+            background: var(--rule-2);
+            border-radius: 1px
+        }
+
+        .doc-mini span:nth-child(1) {
+            width: 64%
+        }
+
+        .doc-mini span:nth-child(2) {
+            width: 100%
+        }
+
+        .doc-mini span:nth-child(3) {
+            width: 88%
+        }
+
+        .doc-mini span:nth-child(4) {
+            width: 72%
+        }
+
+        .paste-mini {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .paste-mini .chev {
+            font-family: var(--mono);
+            font-size: 30px;
+            color: var(--ink-3);
+            line-height: 1
+        }
+
+        .paste-mini .caret {
+            width: 6px;
+            height: 32px;
+            background: var(--coral);
+            animation: blink 1.1s steps(1) infinite
+        }
+
+        @keyframes blink {
+
+            0%,
+            50% {
+                opacity: 1
+            }
+
+            50.01%,
+            100% {
+                opacity: 0
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .paste-mini .caret {
+                animation: none
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ======================= TOP BAR ======================= -->
+    <header class="topbar">
+        <div class="row">
+            <span class="wordmark">VERITAS</span>
+            <span class="divider"></span>
+            <span class="meta">UX Case Study</span>
+        </div>
+    </header>
+
+    <!-- ======================= HERO ======================= -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="eyebrow rev">The Truth Machine · Real-time claim verification</div>
+            <h1 class="rev">Designing<br>trust in a<br>black box.
+                <span class="sub">Input → ASR → Diarize → Extract → Verify → Verdict</span>
+            </h1>
+            <p class="tagline rev">A conversation goes in. Individual claims come out — checked against the live web,
+                attributed to who said them, and rated with honest confidence.</p>
+
+            <!-- the thesis artifact: a claim becoming a verdict -->
+            <div class="transform rev">
+                <div class="claim-src">
+                    <div class="who"><span class="rec"><i></i></span> Speaker A · live mic</div>
+                    <div class="said">“The unemployment rate is 2.1 percent.”</div>
+                </div>
+
+                <div class="arrowrail">
+                    <span class="lbl">extract</span>
+                    <span class="glyph">→</span>
+                    <span class="lbl">verify</span>
+                </div>
+
+                <div class="verdict-card" id="heroVerdict">
+                    <div class="vhead">
+                        <span class="badge false">● False</span>
+                        <span class="conf">confidence <b>92</b></span>
+                    </div>
+                    <div class="confbar"><i data-fill="92"></i></div>
+                    <div class="why">Current reported figure sits well above 2.1%. Three sources contradict the claim;
+                        none support it.</div>
+                    <div class="src">
+                        <span><span class="cross">✕</span> bls.gov</span>
+                        <span><span class="cross">✕</span> reuters</span>
+                        <span><span class="tick">◦</span> wikipedia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= AT A GLANCE ======================= -->
+    <section class="band" style="padding-top:clamp(40px,6vw,72px)">
+        <div class="wrap">
+            <div class="glance rev">
+                <div class="cell">
+                    <div class="k">Role</div>
+                    <div class="v accent">Sole product designer<br>+ front-end build</div>
+                </div>
+                <div class="cell">
+                    <div class="k">Duration</div>
+                    <div class="v">~6 weeks<br>concept → shipped</div>
+                </div>
+                <div class="cell">
+                    <div class="k">Platform</div>
+                    <div class="v">Responsive web app<br>(desktop-first)</div>
+                </div>
+                <div class="cell">
+                    <div class="k">Type</div>
+                    <div class="v">0→1<br>AI product</div>
+                </div>
+                <div class="cell">
+                    <div class="k">Tools</div>
+                    <div class="v">Figma · code<br>(Next.js/CSS)</div>
+                </div>
+                <div class="cell">
+                    <div class="k">Owned</div>
+                    <div class="v">Research · IA · IxD<br>· visual · system</div>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <p class="lead read rev">VERITAS lets anyone drop a conversation — spoken, uploaded, or pasted — and watch
+                it get fact-checked in real time. The hard design problem wasn't the checking. It was making a slow,
+                uncertain, six-stage AI process feel <strong>legible, honest, and fast enough to trust in the
+                    moment.</strong></p>
+        </div>
+    </section>
+
+    <!-- ======================= 01 PROBLEM ======================= -->
+    <section class="band" id="problem">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(01)</span>
+                <h2>The problem</h2>
+                <span class="kicker">Why it matters</span>
+            </div>
+
+            <div class="cols2">
+                <div class="rev">
+                    <p>People form beliefs live — during a debate, a podcast, a meeting, a lecture. But verification is
+                        <strong>always after the fact.</strong> By the time a claim is checked, the moment that mattered
+                        is gone, and the check lives somewhere the listener will never look.
+                    </p>
+                    <p>I looked at how existing fact-checkers actually feel to use, and three friction points kept
+                        surfacing.</p>
+                    <div class="spacer-s"></div>
+                    <div class="principle"
+                        style="border-top:1px solid var(--rule);padding:20px 0;grid-template-columns:44px 1fr">
+                        <div class="pn">01</div>
+                        <div>
+                            <h4 style="font-size:1.15rem">They're opaque</h4>
+                            <p>You get a rating, not a reason. There's no visible path from claim to verdict, so there's
+                                nothing to trust or disagree with.</p>
+                        </div>
+                    </div>
+                    <div class="principle" style="padding:20px 0;grid-template-columns:44px 1fr">
+                        <div class="pn">02</div>
+                        <div>
+                            <h4 style="font-size:1.15rem">They're single-format</h4>
+                            <p>Text in, rating out. Nobody's meeting people where the claims actually happen — in
+                                speech, in documents, in the flow of a real conversation.</p>
+                        </div>
+                    </div>
+                    <div class="principle" style="padding:20px 0;border-bottom:0;grid-template-columns:44px 1fr">
+                        <div class="pn">03</div>
+                        <div>
+                            <h4 style="font-size:1.15rem">They lose the speaker</h4>
+                            <p>Claims float free of who said them. There's no accountability, and no way to ask "how
+                                reliable was <em>this person</em> today?"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rev">
+                    <div class="figure">
+                        <div class="eyebrow" style="margin-bottom:18px">The design brief, in one line</div>
+                        <p class="pull" style="font-size:clamp(1.3rem,3vw,1.9rem);max-width:none">Turn a <span
+                                class="accent">black box</span> into something a person can watch, question, and
+                            believe.</p>
+                        <div class="cap">Framing · <b>the checking is the AI's job. The trust is the design's job.</b>
+                        </div>
+                    </div>
+                    <div class="spacer"></div>
+                    <p class="dim">The engineering could produce a correct verdict. That alone changes nothing if the
+                        person doesn't understand where it came from, can't tell how sure the system is, or has already
+                        scrolled past. Every design decision below is aimed at one outcome: <strong>calibrated
+                            trust</strong> — belief that tracks the evidence, not blind faith and not blanket doubt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 02 WHO IT'S FOR ======================= -->
+    <section class="band" id="users">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(02)</span>
+                <h2>Who it's for</h2>
+                <span class="kicker">Jobs to be done</span>
+            </div>
+            <p class="read dim rev" style="margin-bottom:34px">Solo project, lightweight research: I ran informal
+                interviews and think-alouds with people who consume claim-heavy media, then wrote two provisional
+                personas to anchor decisions. Both share one job — <em>reduce the effort between hearing a claim and
+                    knowing whether to believe it.</em></p>
+
+            <div class="persona-grid rev">
+                <div class="persona">
+                    <div class="role">Primary · the live listener</div>
+                    <h4>Maya — follows debates & podcasts</h4>
+                    <p class="jtbd">“When I'm listening to two people argue, I want to know in the moment which one is
+                        playing loose with the facts — without pausing to open five tabs.”</p>
+                    <ul class="painlist">
+                        <li>Claims fly past faster than she can check them</li>
+                        <li>Doesn't know which speaker to trust as the conversation goes on</li>
+                        <li>Distrusts single ratings with no evidence behind them</li>
+                    </ul>
+                </div>
+                <div class="persona">
+                    <div class="role">Secondary · the analyst</div>
+                    <h4>Dev — researcher & note-taker</h4>
+                    <p class="jtbd">“I have a 40-minute transcript and a report to write. I need the checkable claims
+                        pulled out, sourced, and grouped by who said them — as a starting point, not a black-box
+                        answer.”</p>
+                    <ul class="painlist">
+                        <li>Manual claim extraction from long docs is tedious</li>
+                        <li>Needs sources he can click, not a score to take on faith</li>
+                        <li>Wants to override the machine when it's uncertain</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 03 PRINCIPLES ======================= -->
+    <section class="band" id="principles">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(03)</span>
+                <h2>Design principles</h2>
+                <span class="kicker">The north stars</span>
+            </div>
+            <p class="read dim rev" style="margin-bottom:20px">Five principles I set before touching a layout. Every
+                decision downstream had to answer to at least one of them. They doubled as tie-breakers whenever “more
+                information” fought “less friction.”</p>
+
+            <div class="principles rev">
+                <div class="principle">
+                    <div class="pn">01</div>
+                    <div>
+                        <h4>Show the machine thinking</h4>
+                        <p>Never a spinner. If the system is working, the person should see it working — stage by stage,
+                            claim by claim. Visible process is the foundation of trust.</p>
+                    </div>
+                </div>
+                <div class="principle">
+                    <div class="pn">02</div>
+                    <div>
+                        <h4>Never overclaim certainty</h4>
+                        <p>A confident-looking wrong answer is worse than a hedged one. Confidence is always visible,
+                            and genuinely uncertain verdicts get handed to a human rather than faked.</p>
+                    </div>
+                </div>
+                <div class="principle">
+                    <div class="pn">03</div>
+                    <div>
+                        <h4>Meet people in their format</h4>
+                        <p>Claims live in speech, documents, and text. The product accepts all three through one mental
+                            model, so nobody has to reshape their input to fit the tool.</p>
+                    </div>
+                </div>
+                <div class="principle">
+                    <div class="pn">04</div>
+                    <div>
+                        <h4>Attribute everything</h4>
+                        <p>Every claim, verdict, and score is bound to a speaker. Accountability isn't a feature bolted
+                            on — it's carried through the whole pipeline.</p>
+                    </div>
+                </div>
+                <div class="principle">
+                    <div class="pn">05</div>
+                    <div>
+                        <h4>Fast to first signal</h4>
+                        <p>The first verdict should land as early as possible. Perceived speed comes from streaming
+                            results, not from making the whole job finish faster.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 04 IA + FLOW ======================= -->
+    <section class="band" id="ia">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(04)</span>
+                <h2>Architecture &amp; flow</h2>
+                <span class="kicker">One spine, three doors</span>
+            </div>
+
+            <p class="read dim rev" style="margin-bottom:30px">The whole product is one linear pipeline with three entry
+                points. I made that structure <em>literal</em> in the interface: three input “doors,” then a single
+                visible rail every input travels down. The rail isn't decoration — it's a live progress model that tells
+                you exactly where your conversation is.</p>
+
+            <div class="figure rev" style="padding:0;overflow:hidden">
+                <div style="padding:clamp(20px,3vw,32px) clamp(20px,3vw,34px) 0">
+                    <div class="eyebrow" style="margin-bottom:8px">Section (01) INPUT — pick a door</div>
+                </div>
+                <div class="rail" id="railFlow" style="border-top:0;margin:14px 0 0">
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">DOOR 01</div>
+                        <div class="lbl">Mic Live</div>
+                        <div class="desc">Stream a conversation. Diarized as it lands.</div>
+                    </div>
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">DOOR 02</div>
+                        <div class="lbl">Document</div>
+                        <div class="desc">Word or PDF. Text pulled on the server.</div>
+                    </div>
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">DOOR 03</div>
+                        <div class="lbl">Paste</div>
+                        <div class="desc">Speaker A: / B: prefixes are honoured.</div>
+                    </div>
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">—</div>
+                        <div class="lbl">converge</div>
+                        <div class="desc">All three normalise to speaker-labelled lines.</div>
+                    </div>
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">—</div>
+                        <div class="lbl">pipeline</div>
+                        <div class="desc">One shared six-stage process.</div>
+                    </div>
+                    <div class="st">
+                        <div class="dot"></div>
+                        <div class="n">—</div>
+                        <div class="lbl">report</div>
+                        <div class="desc">Per-speaker verdicts, exportable.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spacer-l"></div>
+
+            <div class="eyebrow rev" style="margin-bottom:16px">Section (02) → the shared rail, in motion</div>
+            <div class="rail rev" id="railStages" style="border:1px solid var(--rule-2)">
+                <div class="st">
+                    <div class="dot"></div><span class="n">01</span>
+                    <div class="lbl">Input</div>
+                    <div class="desc">Conversation captured &amp; normalised</div>
+                </div>
+                <div class="st">
+                    <div class="dot"></div><span class="n">02</span>
+                    <div class="lbl">ASR</div>
+                    <div class="desc">Speech → text (live streaming)</div>
+                </div>
+                <div class="st">
+                    <div class="dot"></div><span class="n">03</span>
+                    <div class="lbl">Diarize</div>
+                    <div class="desc">Who said what</div>
+                </div>
+                <div class="st">
+                    <div class="dot"></div><span class="n">04</span>
+                    <div class="lbl">Extract</div>
+                    <div class="desc">Checkable claims isolated</div>
+                </div>
+                <div class="st">
+                    <div class="dot"></div><span class="n">05</span>
+                    <div class="lbl">Verify</div>
+                    <div class="desc">Live web evidence gathered</div>
+                </div>
+                <div class="st">
+                    <div class="dot"></div><span class="n">06</span>
+                    <div class="lbl">Verdict</div>
+                    <div class="desc">Rated, sourced, attributed</div>
+                </div>
+            </div>
+            <p class="small rev" style="margin-top:16px;max-width:56ch">The rail is persistent and animated. Each dot
+                lights as its stage begins, so a person always has an honest answer to the only question that matters
+                while they wait: <em>is this thing actually doing something, and how far along is it?</em></p>
+        </div>
+    </section>
+
+    <!-- ======================= 05 KEY DECISIONS ======================= -->
+    <section class="band" id="decisions">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(05)</span>
+                <h2>Key design decisions</h2>
+                <span class="kicker">Tension → move → why</span>
+            </div>
+
+            <!-- DECISION 1 -->
+            <div class="decision rev">
+                <div class="dhead"><span class="dnum">D1</span></div>
+                <h3>Choosing the input model: three concepts, one deck</h3>
+                <div class="tension">Tension&nbsp;&nbsp;·&nbsp;&nbsp;<b>Three very different inputs (live audio, files,
+                        text) — how do you present them without a cluttered form or a hidden menu?</b></div>
+                <p class="read">I designed and prototyped three distinct entry patterns as standalone previews, then
+                    pressure-tested each against the principles “meet people in their format” and “fast to first
+                    signal.”</p>
+
+                <div class="concepts">
+                    <div class="concept">
+                        <div class="chead"><span class="cno">Concept A</span><span class="cstatus">Rejected</span></div>
+                        <div class="cdiag">
+                            <div class="diag-drop">+</div>
+                        </div>
+                        <div class="cbody">
+                            <h4>Unified drop zone</h4>
+                            <p>One surface for everything — drop a file, click to record, or start typing.</p>
+                            <div class="cnote"><span class="mk">✕</span><span>Minimal, but ambiguous. Nothing signalled
+                                    that live audio or paste were even options.</span></div>
+                        </div>
+                    </div>
+
+                    <div class="concept">
+                        <div class="chead"><span class="cno">Concept B</span><span class="cstatus">Rejected</span></div>
+                        <div class="cdiag">
+                            <div class="diag-mixer"><span class="track t1"><i></i></span><span
+                                    class="track t2"><i></i></span><span class="track t3"><i></i></span></div>
+                        </div>
+                        <div class="cbody">
+                            <h4>Mixer fader</h4>
+                            <p>Inputs as channels on an audio mixer — on-brand and playful.</p>
+                            <div class="cnote"><span class="mk">✕</span><span>Implied you'd blend modes, which you never
+                                    do. The metaphor fought the mental model.</span></div>
+                        </div>
+                    </div>
+
+                    <div class="concept win">
+                        <div class="chead"><span class="cno">Concept C</span><span class="cstatus">◆ Shipped</span>
+                        </div>
+                        <div class="cdiag">
+                            <div class="diag-deck"><span class="dc dc1"></span><span class="dc dc3"></span><span
+                                    class="dc dc2"></span></div>
+                        </div>
+                        <div class="cbody">
+                            <h4>Trifold deck</h4>
+                            <p>Three fanned cards — Mic, Document, Paste. Each an equal choice with its own texture.</p>
+                            <div class="cnote"><span class="mk">◆</span><span>One tap, zero ambiguity. The only concept
+                                    that scored on both clarity and delight.</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="read" style="margin-top:28px"><strong>Why the deck won:</strong> it makes three unlike inputs
+                    feel like three equal, legible doors. Each card carries a texture that previews its mode — a live
+                    waveform for the mic, paper grain for documents, a blinking caret for text — so the choice is
+                    recognisable before you read a word.</p>
+
+                <div class="deckstage rev" style="margin-top:8px">
+                    <span class="swm">VERITAS</span>
+                    <span class="scta">Pick a card to begin</span>
+
+                    <div class="fcard left">
+                        <div class="fno">01</div>
+                        <div class="fwm">VERITAS</div>
+                        <div class="fmotif">
+                            <div class="mic-wrap"><span class="mic-dot"></span>
+                                <div class="wave"><i style="height:4px"></i><i style="height:9px"></i><i
+                                        style="height:14px"></i><i style="height:8px"></i><i style="height:17px"></i><i
+                                        style="height:6px"></i><i style="height:12px"></i><i style="height:5px"></i><i
+                                        style="height:13px"></i><i style="height:7px"></i></div>
+                            </div>
+                        </div>
+                        <div class="ftitle">Mic Live</div>
+                        <div class="fdesc">Stream a conversation. Diarized as it lands.</div>
+                    </div>
+
+                    <div class="fcard right">
+                        <div class="fno">03</div>
+                        <div class="fwm">VERITAS</div>
+                        <div class="fmotif">
+                            <div class="paste-mini"><span class="chev">&rsaquo;</span><span class="caret"></span></div>
+                        </div>
+                        <div class="ftitle">Paste</div>
+                        <div class="fdesc">Speaker A: / B: prefixes are honoured.</div>
+                    </div>
+
+                    <div class="fcard center">
+                        <div class="fno">02</div>
+                        <div class="fwm">VERITAS</div>
+                        <div class="fmotif">
+                            <div class="doc-mini"><span></span><span></span><span></span><span></span></div>
+                        </div>
+                        <div class="ftitle">Document</div>
+                        <div class="fdesc">Word or PDF. Text is pulled on the server.</div>
+                    </div>
+                </div>
+                <p class="small" style="margin-top:14px">The shipped trifold deck, recreated from the live product —
+                    three fanned cards, each previewing its input mode.</p>
+            </div>
+
+            <!-- DECISION 2 -->
+            <div class="decision rev">
+                <div class="dhead"><span class="dnum">D2</span></div>
+                <h3>Making an opaque process watchable</h3>
+                <div class="tension">Tension&nbsp;&nbsp;·&nbsp;&nbsp;<b>Verification takes real time and many hidden
+                        steps. A loading spinner reads as “broken” and kills trust.</b></div>
+                <p class="read">Instead of hiding the pipeline behind a wait, I surfaced it. Results <strong>stream in
+                        as they happen</strong> — a transcript line appears, then a claim gets flagged, then a search
+                    kicks off, then a verdict lands. The person isn't waiting for an answer; they're watching one get
+                    built.</p>
+
+                <div class="cols2" style="margin-top:12px">
+                    <div>
+                        <div class="iter" style="border:1px solid var(--rule-2)">
+                            <div class="side before" style="border-right:0;border-bottom:1px solid var(--rule)">
+                                <div class="tg">✕ Spinner (rejected)</div>
+                                <p>“Checking…” for 20+ seconds. No signal of progress or life. Users assumed it had
+                                    frozen and refreshed — losing the run.</p>
+                            </div>
+                            <div class="side after" style="border-right:0">
+                                <div class="tg">◦ Streamed pipeline (shipped)</div>
+                                <p>Six-stage rail + live feed. Every few hundred milliseconds something visibly changes.
+                                    Perceived wait collapses; the process itself builds credibility.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="figure" style="background:var(--bg-card)">
+                            <div class="eyebrow" style="margin-bottom:14px">Standby → live</div>
+                            <div style="display:flex;align-items:center;gap:18px">
+                                <span class="rec" style="width:14px;height:14px"><i></i></span>
+                                <div>
+                                    <div class="mono" style="font-size:13px;letter-spacing:.2em;color:var(--ink)">
+                                        RECORDING</div>
+                                    <div class="small" style="margin-top:2px">the record button breathes with a live
+                                        ripple — a small, honest signal that audio is really being captured</div>
+                                </div>
+                            </div>
+                            <div class="cap">Micro-interaction · <b>state you can feel, not just read</b></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DECISION 3 -->
+            <div class="decision rev">
+                <div class="dhead"><span class="dnum">D3</span></div>
+                <h3>A verdict system that tells the truth about uncertainty</h3>
+                <div class="tension">Tension&nbsp;&nbsp;·&nbsp;&nbsp;<b>Binary true/false is a lie. Real claims are
+                        misleading, unverifiable, or genuinely borderline. How do you show that without overwhelming
+                        people?</b></div>
+                <p class="read">I designed four verdict states, each with a dedicated colour and a plain-language label,
+                    plus a visible confidence score and an evidence list. Colour does the fast reading; the score and
+                    sources do the trusting.</p>
+
+                <div class="spacer-s"></div>
+                <div class="cols2" style="gap:16px">
+                    <div class="verdict-card"
+                        style="border-color:var(--teal);background:linear-gradient(180deg,rgba(58,198,174,.07),transparent)">
+                        <div class="vhead"><span class="badge verified">● Verified</span><span class="conf">confidence
+                                <b>96</b></span></div>
+                        <div class="confbar"><i data-fill="96" style="background:var(--teal)"></i></div>
+                        <div class="why">Multiple credible sources agree. Green means you can move on.</div>
+                    </div>
+                    <div class="verdict-card" style="border-color:var(--coral-dim)">
+                        <div class="vhead"><span class="badge false">● False</span><span class="conf">confidence
+                                <b>92</b></span></div>
+                        <div class="confbar"><i data-fill="92"></i></div>
+                        <div class="why">Credible evidence directly contradicts it. Red means stop.</div>
+                    </div>
+                    <div class="verdict-card"
+                        style="border-color:var(--amber);background:linear-gradient(180deg,rgba(224,166,62,.07),transparent)">
+                        <div class="vhead"><span class="badge misleading">● Misleading</span><span
+                                class="conf">confidence <b>71</b></span></div>
+                        <div class="confbar"><i data-fill="71" style="background:var(--amber)"></i></div>
+                        <div class="why">Technically defensible, materially misleading. Amber means look closer.</div>
+                    </div>
+                    <div class="verdict-card" style="border-color:var(--rule-2);background:var(--bg-card)">
+                        <div class="vhead"><span class="badge unverified">● Unverified</span><span
+                                class="conf">confidence <b>14</b></span></div>
+                        <div class="confbar"><i data-fill="14" style="background:var(--slate)"></i></div>
+                        <div class="why">Not enough evidence exists to rule either way. The system says so plainly
+                            instead of guessing.</div>
+                    </div>
+                </div>
+
+                <div class="note">
+                    <div class="nt">The most important design decision on this screen</div>
+                    <p>Verdicts that land in the genuinely uncertain <strong>40–70% confidence band</strong> aren't
+                        presented as answers. They surface an <strong>approval control</strong> and ask a human to
+                        decide — a calibrated human-in-the-loop. The interface's job there is to make the machine's
+                        doubt <em>visible and actionable</em>, not to paper over it. Designing the honest,
+                        low-confidence state well mattered more than designing the confident one.</p>
+                </div>
+            </div>
+
+            <!-- DECISION 4 -->
+            <div class="decision rev">
+                <div class="dhead"><span class="dnum">D4</span></div>
+                <h3>Binding every claim to a speaker</h3>
+                <div class="tension">Tension&nbsp;&nbsp;·&nbsp;&nbsp;<b>Attribution has to be instantly scannable across
+                        a long transcript — and diarization is noisy for monologues.</b></div>
+                <p class="read">Each speaker gets a persistent colour, carried from the transcript all the way to a
+                    per-speaker accuracy report. You can read a conversation and see, at a glance, whose claims are
+                    holding up. Claims are highlighted inline where they occur, so the source sentence and its verdict
+                    are never far apart.</p>
+
+                <div class="screen rev" style="margin-top:8px">
+                    <div class="chrome"><span class="wm">VERITAS</span><span class="st"><span class="n">(02)</span>
+                            TRANSCRIPT · multi-speaker</span></div>
+                    <div class="body">
+                        <div class="tline"><span class="spk a">Speaker A</span><span class="txt"><mark>The unemployment
+                                    rate is 2.1 percent.</mark><span class="flag">✕ false 92</span></span></div>
+                        <div class="tline"><span class="spk b">Speaker B</span><span class="txt"><mark>Inflation dropped
+                                    to under one percent this year.</mark><span class="flag">◦ misleading
+                                    68</span></span></div>
+                        <div class="tline" style="border-bottom:0"><span class="spk a">Speaker A</span><span
+                                class="txt">Anyway, let's move on to the budget.<span class="flag"
+                                    style="color:var(--slate)">— no claim</span></span></div>
+                    </div>
+                </div>
+                <p class="small" style="margin-top:12px;margin-bottom:22px">Speaker colour is consistent everywhere it
+                    appears; claim highlights link a sentence to its verdict without a jump.</p>
+
+                <p class="read"><strong>The noise problem:</strong> diarization splits a single speaker into phantom
+                    “speakers” across pauses. For a lecture or podcast that's actively harmful. So I added a
+                    <strong>Single Speaker / Multi-Speaker</strong> toggle — one deliberate choice that trades
+                    attribution for cleaner output when there's only one voice. It locks once recording starts, because
+                    switching mid-session would corrupt the speaker map.
+                </p>
+                <div class="togglemock"><span class="act">Multi-speaker</span><span>Single speaker</span></div>
+            </div>
+
+            <!-- DECISION 5 -->
+            <div class="decision rev">
+                <div class="dhead"><span class="dnum">D5</span></div>
+                <h3>An editorial-brutalist language — because a truth machine should feel serious</h3>
+                <div class="tension">Tension&nbsp;&nbsp;·&nbsp;&nbsp;<b>An AI tool can easily read as a toy or a
+                        hype-deck. This one is making claims about what's true. It has to earn sobriety.</b></div>
+                <div class="cols2" style="margin-top:8px">
+                    <div>
+                        <p>I chose a dark, high-contrast, monospace-driven system with hairline rules, numbered section
+                            markers, and zero decorative gradients. The register is a scientific instrument, not a
+                            consumer app — restraint <em>is</em> the trust signal.</p>
+                        <p>There's a deliberate duality in the type: the <strong>machine speaks in monospace</strong>
+                            (labels, stages, verdicts, metadata) and the <strong>human narrative speaks in a
+                                serif</strong>. It mirrors the product's core idea — an automated pipeline that still
+                            defers to human judgment.</p>
+                    </div>
+                    <div>
+                        <div class="pull">A verdict you trust should look like <span class="accent">evidence</span>, not
+                            marketing.</div>
+                        <p class="small" style="margin-top:10px">Every visible element is bespoke — no UI kit in the
+                            build. Discipline in spacing and type carries the whole aesthetic, so the one place I spend
+                            boldness is the semantic verdict colour.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 06 DESIGN SYSTEM ======================= -->
+    <section class="band" id="system">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(06)</span>
+                <h2>The design system</h2>
+                <span class="kicker">Coherent, no UI kit</span>
+            </div>
+
+            <div class="eyebrow rev" style="margin-bottom:16px">Semantic colour — meaning is load-bearing, not aesthetic
+            </div>
+            <div class="swatches rev">
+                <div class="sw">
+                    <div class="chip" style="background:var(--teal)"></div>
+                    <div class="info">
+                        <div class="role">Verified</div>
+                        <div class="hex">#3AC6AE</div>
+                        <div class="use">Evidence agrees — safe</div>
+                    </div>
+                </div>
+                <div class="sw">
+                    <div class="chip" style="background:var(--coral)"></div>
+                    <div class="info">
+                        <div class="role">False / Accent</div>
+                        <div class="hex">#FF4A37</div>
+                        <div class="use">Contradicted — stop</div>
+                    </div>
+                </div>
+                <div class="sw">
+                    <div class="chip" style="background:var(--amber)"></div>
+                    <div class="info">
+                        <div class="role">Misleading</div>
+                        <div class="hex">#E0A63E</div>
+                        <div class="use">Look closer</div>
+                    </div>
+                </div>
+                <div class="sw">
+                    <div class="chip" style="background:var(--slate)"></div>
+                    <div class="info">
+                        <div class="role">Unverified</div>
+                        <div class="hex">#7F8A97</div>
+                        <div class="use">No evidence found</div>
+                    </div>
+                </div>
+                <div class="sw">
+                    <div class="chip" style="background:var(--bg-card);border-bottom:1px solid var(--rule)"></div>
+                    <div class="info">
+                        <div class="role">Ground</div>
+                        <div class="hex">#0B0A09</div>
+                        <div class="use">Darkroom canvas</div>
+                    </div>
+                </div>
+            </div>
+            <p class="small rev" style="margin-top:14px;max-width:60ch">The coral accent is used for exactly two things
+                — brand and the False verdict — so it never dilutes. A person learns the colour once and reads verdicts
+                pre-linguistically forever after.</p>
+
+            <div class="spacer-l"></div>
+
+            <div class="cols2 rev">
+                <div>
+                    <div class="eyebrow" style="margin-bottom:16px">Type — two voices, one system</div>
+                    <div class="specimen">
+                        <div class="row"><span class="role">Machine · label</span><span class="samp-mono"
+                                style="font-size:12px">(05) VERDICTS</span></div>
+                        <div class="row"><span class="role">Machine · verdict</span><span class="samp-mono"
+                                style="font-size:15px;font-weight:700;color:var(--coral)">FALSE · 92</span></div>
+                        <div class="row"><span class="role">Human · headline</span><span class="samp-serif"
+                                style="font-size:26px">Designing trust</span></div>
+                        <div class="row"><span class="role">Human · body</span><span class="samp-serif"
+                                style="font-size:16px;font-style:italic">a conversation goes in…</span></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="eyebrow" style="margin-bottom:16px">Components — the kit I built</div>
+                    <div class="figure" style="background:var(--bg-card)">
+                        <ul
+                            style="list-style:none;padding:0;margin:0;font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--ink-2)">
+                            <li style="padding:11px 0;border-bottom:1px solid var(--rule)">▸ Verdict card <span
+                                    style="color:var(--muted)">— label · confidence bar · evidence</span></li>
+                            <li style="padding:11px 0;border-bottom:1px solid var(--rule)">▸ Six-stage pipeline rail
+                                <span style="color:var(--muted)">— live progress</span>
+                            </li>
+                            <li style="padding:11px 0;border-bottom:1px solid var(--rule)">▸ Credibility / freshness /
+                                rhetoric badges</li>
+                            <li style="padding:11px 0;border-bottom:1px solid var(--rule)">▸ Speaker chips <span
+                                    style="color:var(--muted)">— persistent colour</span></li>
+                            <li style="padding:11px 0;border-bottom:1px solid var(--rule)">▸ (01)-style section markers
+                            </li>
+                            <li style="padding:11px 0">▸ Curtain transitions between views</li>
+                        </ul>
+                        <div class="cap">System · <b>every element bespoke — zero component libraries in the tree</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+            <div class="rev" style="border:1px solid var(--rule);padding:22px 24px">
+                <div class="eyebrow" style="margin-bottom:10px">Supporting badges — trust, at a glance</div>
+                <div
+                    style="display:flex;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase">
+                    <span class="badge verified" style="font-size:10px;font-weight:400;padding:5px 10px">◦ .gov
+                        source</span>
+                    <span class="badge misleading" style="font-size:10px;font-weight:400;padding:5px 10px">△ 3 days
+                        old</span>
+                    <span class="badge false" style="font-size:10px;font-weight:400;padding:5px 10px">! appeal to
+                        authority</span>
+                    <span class="badge unverified" style="font-size:10px;font-weight:400;padding:5px 10px">— low
+                        corroboration</span>
+                </div>
+                <p class="small" style="margin-top:14px;max-width:64ch">Small inline badges answer the questions a
+                    skeptical reader asks next: <em>how credible is this source, how fresh is it, and is the speaker
+                        using a rhetorical trick?</em> They let people audit a verdict without leaving the card.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 07 ITERATION ======================= -->
+    <section class="band" id="iteration">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(07)</span>
+                <h2>What testing changed</h2>
+                <span class="kicker">Iteration</span>
+            </div>
+            <p class="read dim rev" style="margin-bottom:32px">Informal think-alouds with target users surfaced three
+                trust breaks. Each one changed the design.</p>
+
+            <div class="rev" style="display:grid;gap:18px">
+                <div class="iter">
+                    <div class="side before">
+                        <div class="tg">✕ Before — bare verdict</div>
+                        <p>Early builds showed a label and a score, nothing else. Users flatly didn't believe it: “Says
+                            false — based on what?” The verdict had no standing.</p>
+                    </div>
+                    <div class="side after">
+                        <div class="tg">◦ After — evidence attached</div>
+                        <p>Added the source list with stance markers and credibility badges directly on the card. Trust
+                            rose immediately; people could check the machine's work.</p>
+                    </div>
+                </div>
+                <div class="iter">
+                    <div class="side before">
+                        <div class="tg">✕ Before — silent uncertainty</div>
+                        <p>When retrieval came back thin, a weak verdict appeared with no explanation. Users read low
+                            confidence as the product being bad, not the evidence being scarce.</p>
+                    </div>
+                    <div class="side after">
+                        <div class="tg">◦ After — name the reason</div>
+                        <p>The interface now surfaces a soft warning when a source can't be reached, so a thin verdict
+                            reads as “the web was quiet on this,” not “this tool is broken.”</p>
+                    </div>
+                </div>
+                <div class="iter">
+                    <div class="side before">
+                        <div class="tg">✕ Before — nothing to try</div>
+                        <p>First-time users hit a blank input screen and didn't know what a “good” conversation looked
+                            like or what the output would be.</p>
+                    </div>
+                    <div class="side after">
+                        <div class="tg">◦ After — one-tap demo</div>
+                        <p>Added a <strong>Run Demo</strong> path that plays a pre-built conversation through the full
+                            pipeline with realistic pacing. People understand the entire product in 20 seconds, no
+                            setup.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 08 OUTCOMES ======================= -->
+    <section class="band" id="outcomes">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(08)</span>
+                <h2>Outcomes</h2>
+                <span class="kicker">Impact</span>
+            </div>
+
+            <div class="metrics rev">
+                <div class="metric">
+                    <div class="big accent">3→1</div>
+                    <div class="lab">input modes<br>unified into one flow</div>
+                    <div class="foot">Mic, document &amp; paste behind a single mental model</div>
+                </div>
+                <div class="metric">
+                    <div class="big">4</div>
+                    <div class="lab">honest verdict<br>states designed</div>
+                    <div class="foot">Verified · False · Misleading · Unverified — plus a human-in-loop band</div>
+                </div>
+                <div class="metric">
+                    <div class="big">~20s</div>
+                    <div class="lab">to full product<br>comprehension</div>
+                    <div class="foot">Via the zero-setup demo path</div>
+                </div>
+                <div class="metric">
+                    <div class="big">0</div>
+                    <div class="lab">UI libraries<br>in the build</div>
+                    <div class="foot">A fully bespoke, coherent system</div>
+                </div>
+            </div>
+
+            <div class="spacer"></div>
+            <p class="read rev">The design shipped as a working product, not a mockup. On the accuracy side, an
+                evaluation set of hand-labelled claims run through the real pipeline produced a per-label
+                precision/recall/F1 breakdown — the calibration work that lets the confidence design stay honest rather
+                than decorative. On the experience side, the streamed-pipeline and evidence-first patterns consistently
+                moved test users from <em>“I don't trust this”</em> to <em>“show me the sources”</em> — exactly the
+                calibrated-trust posture the project set out to create.</p>
+
+            <div class="note rev">
+                <div class="nt">A note on these numbers</div>
+                <p>The figures above summarise the design scope and the qualitative signal from informal testing. If you
+                    ran a moderated study or captured task-success / time-on-task / trust-rating data, swap those hard
+                    numbers in here — recruiters weight measured outcomes heavily, and this is the section to make them
+                    concrete.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= 09 REFLECTION ======================= -->
+    <section class="band" id="reflection">
+        <div class="wrap">
+            <div class="sec-head rev">
+                <span class="tag">(09)</span>
+                <h2>Reflection &amp; what's next</h2>
+                <span class="kicker">Looking back</span>
+            </div>
+            <div class="cols2">
+                <div class="rev">
+                    <h4 style="font-size:1.3rem;margin-bottom:14px">What I'd do differently</h4>
+                    <p>Run a <strong>formal, moderated usability study</strong> earlier — my testing was lightweight,
+                        and the trust findings deserved rigour. I'd also commit to a full <strong>accessibility
+                            pass</strong>: the dark, low-chroma palette needs contrast auditing against WCAG, and the
+                        colour-coded verdict system needs a non-colour redundancy (shape or label) for colour-blind
+                        users. That's the honest gap in a design that leans this hard on colour.</p>
+                </div>
+                <div class="rev">
+                    <h4 style="font-size:1.3rem;margin-bottom:14px">Where it goes next</h4>
+                    <p>A fifth <em>Contested</em> verdict state for claims with credible evidence on both sides (the
+                        logic exists; the UI is designed but not yet wired). A <strong>mobile-first pass</strong> — the
+                        current experience is desktop-led, but the “live listener” persona is on a phone. And a
+                        claim-genealogy view that shows how related claims connect across a long conversation.</p>
+                </div>
+            </div>
+
+            <div class="spacer-l"></div>
+
+            <div class="sec-head rev" style="margin-bottom:28px">
+                <span class="tag">(09b)</span>
+                <h2 style="font-size:clamp(1.5rem,3vw,2.2rem)">What this project demonstrates</h2>
+            </div>
+            <div class="lp-grid rev">
+                <div class="lp">
+                    <div class="name">Designing for the user's moment</div>
+                    <p>Started from the listener's moment, not the model. Three input doors exist because claims live in
+                        three formats — the tool bends to the person, not the reverse.</p>
+                </div>
+                <div class="lp">
+                    <div class="name">Simplifying complexity</div>
+                    <p>Collapsed an opaque, multi-step AI process into one legible rail and one recognisable verdict
+                        card. Complexity absorbed by the system, not the user.</p>
+                </div>
+                <div class="lp">
+                    <div class="name">Designing for uncertainty</div>
+                    <p>Designed for calibrated confidence and a human-in-the-loop on uncertain calls — the interface
+                        shows doubt instead of faking certainty.</p>
+                </div>
+                <div class="lp">
+                    <div class="name">End-to-end ownership</div>
+                    <p>Tested to real trust breaks, iterated the fixes, and shipped a working, evaluated product
+                        end-to-end — from research through a bespoke design system in code.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================= FOOTER ======================= -->
+    <footer>
+        <div class="wrap">
+            <div class="fmark rev">VERITAS</div>
+            <div class="ftag rev">The Truth Machine · UX Case Study</div>
+            <div class="fgrid rev">
+                <div>
+                    <div class="fk">Designer</div>
+                    <div class="fv">Dennis Sharon<br>Cheruvathoor Shaj</div>
+                </div>
+                <div>
+                    <div class="fk">Role</div>
+                    <div class="fv">Product Designer<br>Research → IxD → System</div>
+                </div>
+                <div>
+                    <div class="fk">Contact</div>
+                    <div class="fv"><a
+                            href="mailto:cheruvathoorshaj.d@northeastern.edu">cheruvathoorshaj.d@<br>northeastern.edu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // scroll reveal
+        (function () {
+            var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+            var els = document.querySelectorAll('.rev');
+            if (reduce || !('IntersectionObserver' in window)) {
+                els.forEach(function (e) { e.classList.add('in') });
+            } else {
+                var io = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (en) {
+                        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+                    });
+                }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+                els.forEach(function (e) { io.observe(e) });
+            }
+
+            // confidence bars fill when visible
+            var bars = document.querySelectorAll('.confbar > i[data-fill]');
+            if ('IntersectionObserver' in window) {
+                var bo = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (en) {
+                        if (en.isIntersecting) {
+                            var pct = en.target.getAttribute('data-fill');
+                            en.target.style.width = pct + '%';
+                            bo.unobserve(en.target);
+                        }
+                    });
+                }, { threshold: .5 });
+                bars.forEach(function (b) { bo.observe(b) });
+            } else {
+                bars.forEach(function (b) { b.style.width = b.getAttribute('data-fill') + '%' });
+            }
+
+            // sequential pipeline-rail light-up on view
+            function sequence(sel) {
+                var rail = document.querySelector(sel);
+                if (!rail) return;
+                var steps = rail.querySelectorAll('.st');
+                var fired = false;
+                function run() {
+                    if (fired) return; fired = true;
+                    steps.forEach(function (s, i) {
+                        setTimeout(function () { s.classList.add('on') }, reduce ? 0 : i * 260);
+                    });
+                }
+                if ('IntersectionObserver' in window) {
+                    var o = new IntersectionObserver(function (e) {
+                        e.forEach(function (en) { if (en.isIntersecting) { run(); o.disconnect(); } });
+                    }, { threshold: .35 });
+                    o.observe(rail);
+                } else { run(); }
+            }
+            sequence('#railStages');
+            sequence('#railFlow');
+        })();
+    </script>
+</body>
+
+</html>

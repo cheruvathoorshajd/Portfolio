@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="VERITAS — designing trust in a black box">
+  <defs>
+    <radialGradient id="vig" cx="50%" cy="-8%" r="120%">
+      <stop offset="52%" stop-color="#0b0a09"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </radialGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#171412"/>
+      <stop offset="100%" stop-color="#100e0d"/>
+    </linearGradient>
+    <linearGradient id="coralwash" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ff4a37" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ff4a37" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ground -->
+  <rect width="1200" height="900" fill="url(#vig)"/>
+
+  <!-- header row -->
+  <text x="72" y="98" font-family="'Space Mono', ui-monospace, monospace" font-weight="700" font-size="26" letter-spacing="11" fill="#b6b0a6">VERITAS</text>
+  <text x="1128" y="98" text-anchor="end" font-family="'Space Mono', ui-monospace, monospace" font-size="17" letter-spacing="5" fill="#6f6960">UX CASE STUDY</text>
+  <line x1="72" y1="126" x2="1128" y2="126" stroke="#252119" stroke-width="1"/>
+
+  <!-- eyebrow -->
+  <text x="72" y="212" font-family="'Space Mono', ui-monospace, monospace" font-size="17" letter-spacing="6" fill="#6f6960">THE TRUTH MACHINE · REAL-TIME CLAIM VERIFICATION</text>
+
+  <!-- headline (human voice = serif) -->
+  <text x="70" y="330" font-family="'Newsreader', Georgia, serif" font-size="104" letter-spacing="-2" fill="#ece7df">Designing trust</text>
+  <text x="70" y="438" font-family="'Newsreader', Georgia, serif" font-size="104" letter-spacing="-2" fill="#ece7df">in a black box.</text>
+
+  <!-- pipeline subline (machine voice = mono, coral) -->
+  <text x="72" y="512" font-family="'Space Mono', ui-monospace, monospace" font-size="21" letter-spacing="7" fill="#ff4a37">INPUT → ASR → DIARIZE → EXTRACT → VERIFY → VERDICT</text>
+
+  <!-- verdict card: a claim becoming a verdict -->
+  <rect x="72" y="576" width="1056" height="252" fill="url(#card)" stroke="#c33a2b" stroke-width="1"/>
+  <rect x="72" y="576" width="1056" height="252" fill="url(#coralwash)"/>
+
+  <!-- verdict head -->
+  <circle cx="120" cy="638" r="7" fill="#ff4a37"/>
+  <text x="140" y="647" font-family="'Space Mono', ui-monospace, monospace" font-weight="700" font-size="30" letter-spacing="3" fill="#ff4a37">FALSE</text>
+  <text x="1092" y="647" text-anchor="end" font-family="'Space Mono', ui-monospace, monospace" font-size="22" letter-spacing="2" fill="#b6b0a6">CONFIDENCE 92</text>
+
+  <!-- confidence bar -->
+  <rect x="104" y="678" width="992" height="6" fill="#332e27"/>
+  <rect x="104" y="678" width="912" height="6" fill="#ff4a37"/>
+
+  <!-- reasoning (human voice) -->
+  <text x="104" y="738" font-family="'Newsreader', Georgia, serif" font-size="27" fill="#b6b0a6">Current reported figure sits well above 2.1%. Three sources contradict; none support.</text>
+
+  <!-- evidence -->
+  <text x="104" y="790" font-family="'Space Mono', ui-monospace, monospace" font-size="18" letter-spacing="2" fill="#6f6960"><tspan fill="#ff4a37">✕</tspan> bls.gov      <tspan fill="#ff4a37">✕</tspan> reuters      <tspan fill="#3ac6ae">◦</tspan> wikipedia</text>
+</svg>

@@ -118,24 +118,27 @@ const CaseStudyDetail = ({ caseStudy, onClose }) => {
                         </div>
                     </div>
 
-                    {/* External CTA — Canva/Moqups visual deck */}
+                    {/* External CTA — full case study (Canva/Moqups deck or standalone page) */}
                     {caseStudy.link && (
                         <div className="cs-detail-cta-block">
                             <div className="cs-section-header">
                                 <span className="cs-section-line"></span>
-                                <h2 className="cs-section-title">Visual Case Study</h2>
+                                <h2 className="cs-section-title">{caseStudy.ctaTitle || 'Visual Case Study'}</h2>
                             </div>
                             <p className="cs-cta-copy">
-                                The full visual case study — wireframes, screens, system explorations — lives
-                                in an external deck. Open it in a new tab to view the work in detail.
+                                {caseStudy.ctaCopy ||
+                                    'The full visual case study — wireframes, screens, system explorations — lives in an external deck. Open it in a new tab to view the work in detail.'}
                             </p>
                             <a
-                                href={caseStudy.link}
+                                href={`${caseStudy.link.startsWith('/') ? process.env.PUBLIC_URL : ''}${caseStudy.link}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="cs-detail-cta"
                             >
-                                <span className="cs-cta-text">View on {caseStudy.link.includes('moqups') ? 'Moqups' : 'Canva'}</span>
+                                <span className="cs-cta-text">
+                                    {caseStudy.linkLabel ||
+                                        `View on ${caseStudy.link.includes('moqups') ? 'Moqups' : 'Canva'}`}
+                                </span>
                                 <span className="cs-cta-arrow">↗</span>
                             </a>
                         </div>
