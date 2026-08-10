@@ -90,13 +90,6 @@ export const PROJECTS = [
         category: 'Design & Development (On-Going)',
         image: '/AviaOhr.png',
         description: 'Digital wellness platform'
-    },
-    {
-        id: 6,
-        title: 'MedStar',
-        category: 'Design & Development',
-        image: '/Medstar.png',
-        description: 'Emergency response system'
     }
 ];
 
@@ -125,6 +118,104 @@ export const ABOUT_PILLARS = [
     { label: 'Method', value: 'Research-Led Design' }
 ];
 
+export const ENGINEERING_ABOUT_PILLARS = [
+    { label: 'Discipline', value: 'Full-Stack + AI' },
+    { label: 'Education', value: 'M.S. Information Systems' },
+    { label: 'Stack', value: 'React · Python · Cloud' },
+    { label: 'Focus', value: 'AI Agents & Scalable Systems' }
+];
+
+/* Engineering portfolio — projects rendered as case-study cards.
+   VERITAS opens the standalone case-study page; the rest open the ProjectDetail modal. */
+export const ENGINEERING_CASE_STUDIES = [
+    {
+        id: 'veritas',
+        number: '01',
+        tag: 'Full-Stack AI',
+        title: 'VERITAS',
+        category: '0→1 AI Product',
+        tagline: 'Designing and building trust into a black box — real-time fact-checking you can watch, question, and believe.',
+        summary: 'A 0→1 AI product that lets anyone drop a conversation — spoken, uploaded, or pasted — and watch it get fact-checked in real time. I owned research, IA, interaction, visual design, and the front-end build of a fully bespoke system with zero UI kit — engineering the interface around one goal: calibrated trust that tracks the evidence through a slow, uncertain, six-stage AI pipeline.',
+        role: 'Product Designer · Front-end',
+        duration: '2025',
+        context: 'Solo Project · 0→1 AI Product',
+        tools: ['Next.js', 'React', 'CSS', 'Design Systems'],
+        image: '/veritas.svg',
+        link: 'https://veritas-nine-azure.vercel.app/',
+        linkLabel: 'View live project'
+    },
+    {
+        id: 'nexus911',
+        number: '02',
+        tag: 'Multi-Agent AI',
+        title: 'Nexus911',
+        category: 'Design & Development',
+        tagline: 'Autonomous multi-agent 911 dispatch with real-time hallucination verification.',
+        summary: 'Dedicated Gemini Live voice agents per caller, cross-referenced through a shared Knowledge Graph and merged into a single verified dispatch record in under 20 seconds — anchored by a VerifyLayer middleware that validates every extracted fact via NLI scoring and cross-call contradiction detection before it reaches responders.',
+        role: 'Full-Stack · AI',
+        duration: "Apr '26",
+        context: 'Gemini Live Agent Challenge · Hackathon',
+        tools: ['Gemini Live API', 'Google ADK', 'FastAPI', 'WebSocket', 'Python', 'Cloud Run'],
+        image: '/Nexus911.png'
+    },
+    {
+        id: 'fintrack',
+        number: '03',
+        tag: 'Full-Stack Fintech',
+        title: 'FinTrack',
+        category: 'Design & Development',
+        tagline: 'AI-powered financial tracker with real-time market data and smart investment insights.',
+        summary: 'A full-stack finance app streaming live stock, crypto, and forex data through a clean dashboard, backed by a FastAPI service with JWT auth and bcrypt hashing. Its AI engine scores investment recommendations from price momentum, volume, and market cap — with data managed through SQLAlchemy and built for a seamless PostgreSQL migration in production.',
+        role: 'Full-Stack · AI',
+        duration: "Mar–Apr '26",
+        context: 'Passion Project',
+        tools: ['React', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'yfinance'],
+        image: '/Fintrack.png'
+    },
+    {
+        id: 'vond2',
+        number: '04',
+        tag: 'ML · Blockchain',
+        title: 'VOND.2',
+        category: 'Design & Development',
+        tagline: 'Blockchain-enhanced, ML-driven prescription drug monitoring for crime prevention.',
+        summary: 'A monitoring system tracking narcotic and psychotropic prescriptions to prevent misuse. The self-developed "GIHON" algorithm identifies high-volume buyers and cross-references criminal histories, so that — deployed on a control-bureau server — it can proactively anticipate and prevent drug-related crime.',
+        role: 'Full-Stack · ML',
+        duration: "Dec '21 – Apr '22",
+        context: 'B.Tech IT · Mini Project',
+        tools: ['HTML', 'CSS', 'JavaScript', 'MySQL', 'Blockchain', 'Machine Learning'],
+        image: '/VOND.2.png'
+    },
+    {
+        id: 'bizznex',
+        number: '05',
+        tag: 'Microservices',
+        title: 'BizzNex',
+        category: 'Design & Development',
+        tagline: 'Microservices-driven platform for scalable task optimization and real-time business analytics.',
+        summary: 'A full-stack platform centralizing operations for content creators, entrepreneurs, and freelancers. A modular React + Fluent UI front end (built on Vite) talks to a Node/Express + MongoDB back end over RESTful APIs — architected for easy scalability, maintainability, and secure front-to-back communication.',
+        role: 'Full-Stack',
+        duration: "Nov–Dec '24",
+        context: 'First Semester · Final Project',
+        tools: ['React', 'Fluent UI', 'Vite', 'Node.js', 'Express', 'MongoDB'],
+        image: '/BizzNex.png'
+    },
+    {
+        id: 'aviaohr',
+        number: '06',
+        tag: 'Wellness · AI',
+        title: 'AviaOhr',
+        category: 'Design & Development (On-Going)',
+        tagline: 'Digital wellness through predictive mood analysis and mindful technology use.',
+        summary: 'A wellness platform that monitors screen habits, schedules breaks from doomscrolling, and tracks subjective well-being goals. A React front end and Node/Redux/TypeScript back end pair with a Python-powered virtual assistant to detect harmful digital habits and surface mindfulness interventions — aimed at reducing burnout in corporate and telehealth settings.',
+        role: 'Full-Stack',
+        duration: 'On-Going',
+        context: 'Second Semester · Passion Project',
+        tools: ['React.js', 'Node.js', 'Redux', 'TypeScript', 'Python', 'MongoDB'],
+        image: '/AviaOhr.png'
+    }
+];
+
 export const CASE_STUDIES = [
     {
         id: 'veritas',
@@ -140,6 +231,7 @@ export const CASE_STUDIES = [
         image: '/veritas.svg',
         link: '/veritas.html',
         linkLabel: 'Open full case study',
+        liveLink: 'https://veritas-nine-azure.vercel.app/',
         ctaTitle: 'Full Case Study',
         ctaCopy: 'The complete case study — problem framing, personas, the five design principles, key design decisions, the bespoke design system, testing, and outcomes — lives as a standalone editorial page. Open it in a new tab to read the work in full.'
     },

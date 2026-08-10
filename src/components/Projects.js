@@ -1,50 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { ENGINEERING_CASE_STUDIES } from '../constants';
 import ProjectDetail from './ProjectDetail';
 import '../styles/Projects.css';
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState(null);
-
-    const projectsData = [
-        {
-            title: 'Nexus911',
-            category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/Nexus911.png`,
-            link: '#'
-        },
-        {
-            title: 'FinTrack',
-            category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/Fintrack.png`,
-            link: '#'
-        },
-        {
-            title: 'VOND.2',
-            category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/VOND.2.png`,
-            link: '#'
-        },
-        {
-            title: 'BizzNex',
-            category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/BizzNex.png`,
-            link: '#'
-        },
-        {
-            title: 'AviaOhr',
-            category: 'Design & Development (On-Going)',
-            image: `${process.env.PUBLIC_URL}/AviaOhr.png`,
-            link: '#'
-        },
-        {
-            title: 'MedStar',
-            category: 'Design & Development',
-            image: `${process.env.PUBLIC_URL}/Medstar.png`,
-            link: '#'
-        }
-    ];
-
-    const projectRefs = useRef([]);
+    const itemRefs = useRef([]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -55,51 +16,100 @@ const Projects = () => {
                     }
                 });
             },
-            { threshold: 0.2 }
+            { threshold: 0.15 }
         );
 
-        projectRefs.current.forEach((ref) => {
+        itemRefs.current.forEach((ref) => {
             if (ref) observer.observe(ref);
         });
 
         return () => observer.disconnect();
     }, []);
 
+    const openProject = (project) => {
+        if (project.link) {
+            const href = `${project.link.startsWith('/') ? process.env.PUBLIC_URL : ''}${project.link}`;
+            window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+            setSelectedProject(project);
+        }
+    };
+
     return (
-        <section id="work" className="work-section">
+        <section id="work" className="eng-work-section">
             <div className="container">
                 <div className="section-header">
                     <span className="section-number">04</span>
                     <h2>Project Work</h2>
                 </div>
-                <div className="project-showcase">
-                    {projectsData.map((project, index) => (
+
+                {ENGINEERING_CASE_STUDIES.map((project, index) => (
+                    <article
+                        key={project.id}
+                        className="eng-cs-item"
+                        ref={(el) => (itemRefs.current[index] = el)}
+                    >
                         <div
-                            key={index}
-                            className="project-item"
-                            ref={(el) => (projectRefs.current[index] = el)}
+                            className="eng-cs-visual"
+                            onClick={() => openProject(project)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    openProject(project);
+                                }
+                            }}
                         >
-                            <div className="project-content">
-                                <div className="project-image">
-                                    <div className="img-placeholder">
-                                        <img src={project.image} alt={project.title} className="project-img" />
-                                    </div>
-                                    <button
-                                        className="view-button"
-                                        onClick={() => setSelectedProject(project)}
-                                    >
-                                        View
-                                    </button>
+                            <span className="eng-cs-tag">{project.tag}</span>
+                            <img
+                                src={`${process.env.PUBLIC_URL}${project.image}`}
+                                alt={`${project.title} — ${project.tag}`}
+                                className="eng-cs-img"
+                                loading="lazy"
+                            />
+                            <div className="eng-cs-hover-overlay">
+                                <span>{project.link ? 'View case study →' : 'View project →'}</span>
+                            </div>
+                        </div>
+                        <div className="eng-cs-info">
+                            <span className="eng-cs-number">Project {project.number}</span>
+                            <h3 className="eng-cs-title">{project.title}</h3>
+                            <p className="eng-cs-tagline">"{project.tagline}"</p>
+                            <p className="eng-cs-summary">{project.summary}</p>
+
+                            <div className="eng-cs-meta">
+                                <div className="eng-cs-meta-item">
+                                    <span className="eng-cs-meta-label">Role</span>
+                                    <span className="eng-cs-meta-value">{project.role}</span>
                                 </div>
-                                <div className="project-details">
-                                    <h3 className="project-title">{project.title}</h3>
-                                    <p className="project-category">{project.category}</p>
+                                <div className="eng-cs-meta-item">
+                                    <span className="eng-cs-meta-label">Year</span>
+                                    <span className="eng-cs-meta-value">{project.duration}</span>
+                                </div>
+                                <div className="eng-cs-meta-item">
+                                    <span className="eng-cs-meta-label">Context</span>
+                                    <span className="eng-cs-meta-value">{project.context}</span>
                                 </div>
                             </div>
-                            <div className="project-divider"></div>
+
+                            <div className="eng-cs-tools">
+                                {project.tools.map((tool, i) => (
+                                    <span key={i} className="eng-cs-tool">{tool}</span>
+                                ))}
+                            </div>
+
+                            <button
+                                className="eng-cs-link"
+                                type="button"
+                                onClick={() => openProject(project)}
+                            >
+                                {project.link ? (project.linkLabel || 'Read case study') : 'View project'}
+                                <span className="eng-cs-link-arrow">→</span>
+                            </button>
                         </div>
-                    ))}
-                </div>
+                    </article>
+                ))}
             </div>
 
             {selectedProject && (

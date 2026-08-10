@@ -36,7 +36,7 @@ const DesignAbout = () => {
                 <div className="design-about-content">
                     <div className="design-about-text" ref={textRef}>
                         <p>
-                            I'm a <strong>UX designer with engineering depth</strong> — currently
+                            I'm a <strong>product designer with engineering depth</strong> — currently
                             pursuing a Master of Science in Information Systems at Northeastern University.
                             My design practice began long before my code did: three years at a Chennai studio
                             shipping wireframes, prototypes, and usability sessions across 10+ client products.

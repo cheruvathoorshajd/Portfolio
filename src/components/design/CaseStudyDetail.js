@@ -55,23 +55,6 @@ const CaseStudyDetail = ({ caseStudy, onClose }) => {
                     </div>
                 </section>
 
-                {/* Image */}
-                {caseStudy.image && (
-                    <section className="cs-detail-image-section">
-                        <div className="cs-detail-image-wrapper">
-                            <img
-                                src={`${process.env.PUBLIC_URL}${caseStudy.image}`}
-                                alt={`${caseStudy.title} — visual`}
-                                className="cs-detail-image"
-                            />
-                        </div>
-                        <div className="cs-detail-image-caption">
-                            <span className="cs-caption-line"></span>
-                            <span className="cs-caption-text">{caseStudy.title} — {caseStudy.tag}</span>
-                        </div>
-                    </section>
-                )}
-
                 {/* Body */}
                 <section className="cs-detail-body">
                     <div className="cs-detail-meta-grid">

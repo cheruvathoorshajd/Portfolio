@@ -26,7 +26,7 @@ const DesignHero = () => {
                     <div className="name-line">Cheruvathoor</div>
                 </h1>
                 <h3 className="subtitle" ref={subtitleRef}>
-                    UX Designer
+                    Product Designer
                 </h3>
             </div>
             <div className="scroll-indicator">

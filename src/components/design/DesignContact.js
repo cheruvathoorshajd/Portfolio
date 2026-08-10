@@ -43,7 +43,7 @@ const DesignContact = () => {
                     <h2>Let's work together</h2>
                 </div>
                 <div className="contact-content">
-                    <p>Open to UX Designer roles starting August 2026. Available for interviews, portfolio walkthroughs, and conversations.</p>
+                    <p>Open to Product Designer roles starting August 2026. Available for interviews, portfolio walkthroughs, and conversations.</p>
                     <a
                         href={`mailto:${PERSONAL_INFO.email}`}
                         className="magnetic-button primary-link"

@@ -57,17 +57,6 @@ const projectDetails = {
             'With the collected data, the self-developed "GIHON" algorithm identifies high-volume buyers, cross-referencing with criminal histories (if any). For instance, if the VOND.2 software is deployed in the NCB (Narcotic Control Bureau of India) server it will proactively prevent drug-related crimes by anticipating potential offenders. VOND.2 employs HTML, CSS, and JavaScript for its front end to gather data and MySQL to store it.'
         ],
         tech: ['HTML', 'CSS', 'JavaScript', 'MySQL', 'Blockchain', 'Machine Learning']
-    },
-    'MedStar': {
-        tagline: 'Emergency Response System Utilizing Satellite Internet to Enhance Victim\'s Survivability Rate',
-        duration: "Dec'22 – Apr'23",
-        semester: '8th Semester, Final Year Project',
-        program: 'B.Tech IT',
-        summary: [
-            'MedStar, a mobile application, integrates the "PISHON" algorithm, which was designed to operate automated drones fitted with imagery sensors, enabled by Satellite Internet, to supply food and first aid emergency supplies. MedStar can address emergencies like individuals stuck in high altitude terrain and ocean ventures which are uncharted territories, expediting resource delivery during the critical initial twenty-four hours.',
-            'Triggered by reported emergencies, drones swiftly transport crucial supplies enhancing victims\' survival rate by at least 7-10%. Real-time victim coordinates will be shared with critical emergency response teams like law enforcement departments, fire services, and medical services to enhance coordination. MedStar\'s front-end was successfully carried out in Android Studios using Java and Flutter and tested with optical fiber internet.'
-        ],
-        tech: ['Java', 'Flutter', 'Android Studio', 'Satellite Internet', 'Drone Systems']
     }
 };
 
@@ -75,7 +64,7 @@ const ProjectDetail = ({ project, onClose }) => {
     const overlayRef = useRef(null);
     const contentRef = useRef(null);
     const details = projectDetails[project.title];
-    const projectIndex = Object.keys(projectDetails).indexOf(project.title) + 1;
+    const projectLabel = project.number || String(Object.keys(projectDetails).indexOf(project.title) + 1).padStart(2, '0');
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -112,7 +101,7 @@ const ProjectDetail = ({ project, onClose }) => {
                 {/* Hero Section */}
                 <div className="detail-hero">
                     <div className="detail-hero-content">
-                        <span className="detail-label">Project 0{projectIndex}</span>
+                        <span className="detail-label">Project {projectLabel}</span>
                         <h1 className="detail-title">{project.title}</h1>
                         <div className="detail-title-line"></div>
                         <p className="detail-tagline">"{details.tagline}"</p>
@@ -121,25 +110,9 @@ const ProjectDetail = ({ project, onClose }) => {
                             <span className="hero-meta-pill">{details.duration}</span>
                         </div>
                     </div>
-                    <div className="detail-scroll-hint">
-                        <span>Scroll to explore</span>
-                        <div className="detail-scroll-line"></div>
-                    </div>
                 </div>
 
-                {/* Image Section - Full width cinematic */}
                 <div className="detail-body">
-                    <div className="detail-image-section">
-                        <div className="detail-img-wrapper">
-                            <img src={project.image} alt={project.title} className="detail-img" />
-                            <div className="img-overlay-gradient"></div>
-                        </div>
-                        <div className="detail-image-caption">
-                            <span className="caption-line"></span>
-                            <span className="caption-text">{project.title} — {project.category}</span>
-                        </div>
-                    </div>
-
                     {/* Info Grid */}
                     <div className="detail-info-section">
                         <div className="detail-meta">

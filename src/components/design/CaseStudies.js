@@ -103,15 +103,28 @@ const CaseStudies = () => {
                                 ))}
                             </div>
 
-                            <button
-                                className="case-study-link"
-                                type="button"
-                                onClick={() => openCase(study)}
-                                disabled={!study.link}
-                            >
-                                {study.link ? 'Read case study' : 'Coming soon'}
-                                <span className="case-study-link-arrow">→</span>
-                            </button>
+                            <div className="case-study-actions">
+                                <button
+                                    className="case-study-link"
+                                    type="button"
+                                    onClick={() => openCase(study)}
+                                    disabled={!study.link}
+                                >
+                                    {study.link ? 'Read case study' : 'Coming soon'}
+                                    <span className="case-study-link-arrow">→</span>
+                                </button>
+                                {study.liveLink && (
+                                    <a
+                                        href={study.liveLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="case-study-link case-study-link-live"
+                                    >
+                                        View live project
+                                        <span className="case-study-link-arrow">↗</span>
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </article>
                 ))}

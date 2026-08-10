@@ -47,11 +47,6 @@ const Navigation = ({ lightMode, toggleTheme }) => {
               { type: 'external', label: 'Resume', href: PERSONAL_INFO.resume },
               { type: 'anchor', label: 'Academics', target: '#academics' },
               { type: 'anchor', label: 'Projects', target: '#work' },
-              {
-                  type: 'external',
-                  label: 'Avocations',
-                  href: 'https://cheruvathoor.my.canva.site/photography-portfolio'
-              },
               { type: 'anchor', label: 'Contact', target: '#contact' },
               { type: 'route', label: '← Design Work', to: '/' }
           ]

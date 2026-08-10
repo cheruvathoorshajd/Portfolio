@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
+import { ENGINEERING_ABOUT_PILLARS } from '../constants';
 import '../styles/About.css';
 
 const About = () => {
     const sectionRef = useRef(null);
-    const contentRef = useRef(null);
     const textRef = useRef(null);
     const imageRef = useRef(null);
 
@@ -20,7 +20,6 @@ const About = () => {
         );
 
         if (sectionRef.current) observer.observe(sectionRef.current);
-        if (contentRef.current) observer.observe(contentRef.current);
         if (textRef.current) observer.observe(textRef.current);
         if (imageRef.current) observer.observe(imageRef.current);
 
@@ -34,21 +33,38 @@ const About = () => {
                     <span className="section-number">01</span>
                     <h2>Early Focuses</h2>
                 </div>
-                <div className="about-content" ref={contentRef}>
+                <div className="about-content">
                     <div className="about-text" ref={textRef}>
                         <p>
                             Twelve years ago, I first discovered HTML in 7th grade, which left me in awe yet disappointed
-                            by its limitations. Fast-forward to 2026, and I'm pursuing my Master in Information Systems
-                            at Northeastern University, Boston, MA.
+                            by its limitations. Fast-forward to 2026, and I'm pursuing my <strong>Master in Information Systems</strong>
+                            {' '}at Northeastern University, Boston, MA.
                         </p>
                         <p>
-                            Today, I build across the full spectrum — from AI agents and machine learning
+                            Today, I build across the <strong>full spectrum</strong> — from AI agents and machine learning
                             pipelines to modern frontend interfaces, scalable backend systems, and cloud-native
                             infrastructure — all grounded in a sharp eye for design and user experience.
                         </p>
+                        <div className="about-pillars">
+                            {ENGINEERING_ABOUT_PILLARS.map((pillar, i) => (
+                                <div className="about-pillar" key={i}>
+                                    <span className="about-pillar-label">{pillar.label}</span>
+                                    <span className="about-pillar-value">{pillar.value}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                     <div className="about-image" ref={imageRef}>
-                        <img src={`${process.env.PUBLIC_URL}/Boston.png`} alt="Boston" className="about-img" />
+                        <div className="about-img-wrapper">
+                            <img
+                                src={`${process.env.PUBLIC_URL}/Design 1.jpeg`}
+                                alt="Dennis Sharon Cheruvathoor"
+                                className="about-img"
+                            />
+                        </div>
+                        <div className="about-img-caption">
+                            Boston, MA — Available August 2026
+                        </div>
                     </div>
                 </div>
             </div>

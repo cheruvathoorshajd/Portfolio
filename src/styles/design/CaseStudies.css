@@ -233,6 +233,13 @@
   color: var(--accent);
 }
 
+.case-study-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .case-study-link {
   display: inline-flex;
   align-items: center;
@@ -255,6 +262,18 @@
   border-color: var(--accent);
   color: var(--background);
   transform: translateX(4px);
+}
+
+.case-study-link-live {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.case-study-link-live:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--background);
 }
 
 .case-study-link-arrow {
