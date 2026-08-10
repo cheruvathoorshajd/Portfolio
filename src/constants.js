@@ -7,6 +7,7 @@ export const PERSONAL_INFO = {
     github: 'https://github.com/cheruvathoorshajd',
     linkedin: 'https://www.linkedin.com/in/csdsharon',
     resume: 'https://drive.google.com/file/d/1SHyL1IOVSYLC_IwNTqRpUccGjPF27kC0/view?usp=sharing',
+    resumeEngineering: 'https://drive.google.com/file/d/1aWyL5sRj8L1dWROMSy-qbJBwXVUka6xg/view?usp=sharing',
     avocations: 'https://cheruvathoor.my.canva.site/photography-portfolio'
 };
 

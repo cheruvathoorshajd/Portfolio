@@ -44,14 +44,13 @@ const Navigation = ({ lightMode, toggleTheme }) => {
 
     const menuItems = isDev
         ? [
-              { type: 'external', label: 'Resume', href: PERSONAL_INFO.resume },
+              { type: 'external', label: 'Resume', href: PERSONAL_INFO.resumeEngineering },
               { type: 'anchor', label: 'Academics', target: '#academics' },
               { type: 'anchor', label: 'Projects', target: '#work' },
               { type: 'anchor', label: 'Contact', target: '#contact' },
               { type: 'route', label: '← Design Work', to: '/' }
           ]
         : [
-              { type: 'external', label: 'Resume', href: PERSONAL_INFO.resume },
               { type: 'anchor', label: 'Case Studies', target: '#case-studies' },
               { type: 'anchor', label: 'Process', target: '#process' },
               { type: 'anchor', label: 'Contact', target: '#contact' },

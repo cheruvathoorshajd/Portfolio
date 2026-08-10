@@ -72,6 +72,14 @@ const Contact = () => {
                         >
                             LinkedIn
                         </a>
+                        <a
+                            href="https://drive.google.com/file/d/1aWyL5sRj8L1dWROMSy-qbJBwXVUka6xg/view?usp=sharing"
+                            className="magnetic-button"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Resume
+                        </a>
                         <Link to="/" className="magnetic-button">
                             ← Design Work
                         </Link>

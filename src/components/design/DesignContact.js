@@ -59,7 +59,6 @@ const DesignContact = () => {
                     <div className="social-links">
                         <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
                         <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-                        <a href={PERSONAL_INFO.resume} target="_blank" rel="noopener noreferrer">Resume</a>
                         <Link to="/dev">Engineering Portfolio →</Link>
                     </div>
                 </div>
