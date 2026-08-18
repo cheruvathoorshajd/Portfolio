@@ -130,8 +130,25 @@ export const ENGINEERING_ABOUT_PILLARS = [
    VERITAS opens the standalone case-study page; the rest open the ProjectDetail modal. */
 export const ENGINEERING_CASE_STUDIES = [
     {
-        id: 'veritas',
+        id: 'fluxus',
         number: '01',
+        tag: 'Full-Stack · AI Product',
+        title: 'Fluxus Fisci',
+        category: '0→1 AI Product',
+        tagline: 'A calm, honest companion for reading the markets — AI that shows its work and admits its limits.',
+        summary: 'A 0→1 finance web app built end to end — a React + TypeScript front end over a FastAPI service, with bespoke Recharts data-viz and a per-symbol LSTM forecaster that publishes its own walk-forward backtest louder than its prediction. Two kinds of "intelligence" — deterministic signals arithmetic and an experimental model — each labelled as exactly what it is, so the reader calibrates trust instead of taking a verdict on faith. Ships with a ⌘K command palette, a server-enforced read-only demo mode, and a fully-fluid clamp-based responsive system.',
+        role: 'Full-Stack · Product Design',
+        duration: '2026',
+        context: 'Self-Initiated Flagship',
+        tools: ['React', 'TypeScript', 'FastAPI', 'Recharts', 'LSTM', 'Design Systems'],
+        image: '/FluxusFisci.png',
+        link: 'https://fluxus-fisci.cheruvathoor.com/case-study/index.html',
+        linkLabel: 'Read case study',
+        liveLink: 'https://fluxus-fisci.cheruvathoor.com/onboarding'
+    },
+    {
+        id: 'veritas',
+        number: '02',
         tag: 'Full-Stack AI',
         title: 'VERITAS',
         category: '0→1 AI Product',
@@ -147,7 +164,7 @@ export const ENGINEERING_CASE_STUDIES = [
     },
     {
         id: 'nexus911',
-        number: '02',
+        number: '03',
         tag: 'Multi-Agent AI',
         title: 'Nexus911',
         category: 'Design & Development',
@@ -158,20 +175,6 @@ export const ENGINEERING_CASE_STUDIES = [
         context: 'Gemini Live Agent Challenge · Hackathon',
         tools: ['Gemini Live API', 'Google ADK', 'FastAPI', 'WebSocket', 'Python', 'Cloud Run'],
         image: '/Nexus911.png'
-    },
-    {
-        id: 'fintrack',
-        number: '03',
-        tag: 'Full-Stack Fintech',
-        title: 'FinTrack',
-        category: 'Design & Development',
-        tagline: 'AI-powered financial tracker with real-time market data and smart investment insights.',
-        summary: 'A full-stack finance app streaming live stock, crypto, and forex data through a clean dashboard, backed by a FastAPI service with JWT auth and bcrypt hashing. Its AI engine scores investment recommendations from price momentum, volume, and market cap — with data managed through SQLAlchemy and built for a seamless PostgreSQL migration in production.',
-        role: 'Full-Stack · AI',
-        duration: "Mar–Apr '26",
-        context: 'Passion Project',
-        tools: ['React', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'yfinance'],
-        image: '/Fintrack.png'
     },
     {
         id: 'vond2',
@@ -219,8 +222,26 @@ export const ENGINEERING_CASE_STUDIES = [
 
 export const CASE_STUDIES = [
     {
-        id: 'veritas',
+        id: 'fluxus',
         number: '01',
+        tag: 'AI Product UX',
+        title: 'Fluxus Fisci',
+        tagline: 'A calm, honest way to read the markets — machine intelligence you can trust appropriately.',
+        summary: 'A 0→1 finance companion built to help you understand what\'s moving and why, never to push you to trade. The hard design problem wasn\'t the charts — it was making the AI honest: a transparency-first panel that shows what it looked at, how it reasoned, how sure it really is, and what it can\'t say, with "not advice" as first-class copy. Owned the product design, the bespoke "Patina" design system, the data-viz, and the front-end build — engineered around one goal: calibrated trust.',
+        role: 'Product Design · Design System · Build',
+        duration: '2026',
+        context: 'Self-Initiated Flagship · 0→1 Web App',
+        tools: ['Figma', 'React', 'TypeScript', 'Design Systems', 'Data-Viz'],
+        image: '/FluxusFisci.png',
+        link: 'https://fluxus-fisci.cheruvathoor.com/case-study/index.html',
+        linkLabel: 'Open full case study',
+        liveLink: 'https://fluxus-fisci.cheruvathoor.com/onboarding',
+        ctaTitle: 'Full Case Study',
+        ctaCopy: 'The complete case study — the problem, the product bet, the Patina art direction, the honest-AI transparency panel, every screen, and the reflection — lives as a standalone editorial page. Open it in a new tab to read the work in full.'
+    },
+    {
+        id: 'veritas',
+        number: '02',
         tag: 'AI Product UX',
         title: 'VERITAS',
         tagline: 'Designing trust into a black box — real-time fact-checking you can watch, question, and believe.',
@@ -238,7 +259,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'paypal',
-        number: '02',
+        number: '03',
         tag: 'Fintech UX',
         title: 'PayPal',
         tagline: 'Rebuilding trust into every step of the payment flow.',
@@ -252,7 +273,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'lyft',
-        number: '03',
+        number: '04',
         tag: 'Mobility UX',
         title: 'Lyft',
         tagline: 'Designing a ride experience that earns trust in the first three taps.',
@@ -266,7 +287,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'hm',
-        number: '04',
+        number: '05',
         tag: 'E-Commerce UX',
         title: 'H&M',
         tagline: 'Reimagining product discovery and checkout for a global fashion retailer.',
@@ -280,7 +301,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'mkbhd',
-        number: '05',
+        number: '06',
         tag: 'Brand & Creator UX',
         title: 'MKBHD',
         tagline: 'Translating one of tech\'s most recognizable creator brands into a digital experience.',
@@ -294,7 +315,7 @@ export const CASE_STUDIES = [
     },
     {
         id: 'warnerbros',
-        number: '06',
+        number: '07',
         tag: 'Media & Entertainment UX',
         title: 'Warner Bros',
         tagline: 'Designing the next generation of content discovery for a legacy entertainment brand.',

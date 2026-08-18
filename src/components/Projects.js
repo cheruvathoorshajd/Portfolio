@@ -99,14 +99,27 @@ const Projects = () => {
                                 ))}
                             </div>
 
-                            <button
-                                className="eng-cs-link"
-                                type="button"
-                                onClick={() => openProject(project)}
-                            >
-                                {project.link ? (project.linkLabel || 'Read case study') : 'View project'}
-                                <span className="eng-cs-link-arrow">→</span>
-                            </button>
+                            <div className="eng-cs-actions">
+                                <button
+                                    className="eng-cs-link"
+                                    type="button"
+                                    onClick={() => openProject(project)}
+                                >
+                                    {project.link ? (project.linkLabel || 'Read case study') : 'View project'}
+                                    <span className="eng-cs-link-arrow">→</span>
+                                </button>
+                                {project.liveLink && (
+                                    <a
+                                        href={project.liveLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="eng-cs-link eng-cs-link-live"
+                                    >
+                                        View live app
+                                        <span className="eng-cs-link-arrow">↗</span>
+                                    </a>
+                                )}
+                            </div>
                         </div>
                     </article>
                 ))}

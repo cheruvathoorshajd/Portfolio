@@ -208,6 +208,13 @@
   color: var(--accent);
 }
 
+.eng-cs-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .eng-cs-link {
   display: inline-flex;
   align-items: center;
@@ -223,6 +230,7 @@
   background: transparent;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  text-decoration: none;
 }
 
 .eng-cs-link:hover {
@@ -230,6 +238,17 @@
   border-color: var(--accent);
   color: var(--background);
   transform: translateX(4px);
+}
+
+.eng-cs-link-live {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.eng-cs-link-live:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--background);
 }
 
 .eng-cs-link-arrow {
