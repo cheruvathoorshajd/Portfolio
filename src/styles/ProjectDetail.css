@@ -361,6 +361,78 @@
     animation: detailFadeUp 0.8s cubic-bezier(0.33, 1, 0.68, 1) both;
 }
 
+/* Engineering Highlights */
+.detail-highlights {
+    margin-bottom: 70px;
+}
+
+.detail-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 48px;
+}
+
+.detail-highlight {
+    padding: 28px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    animation: detailFadeUp 0.8s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+.detail-highlight-number {
+    font-family: var(--body-font);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--accent);
+}
+
+.detail-highlight-title {
+    font-family: var(--heading-font);
+    font-size: 1.35rem;
+    color: var(--text);
+    margin: 10px 0 12px;
+}
+
+.detail-highlight-desc {
+    font-family: var(--body-font);
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    margin: 0;
+}
+
+/* Links */
+.detail-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 80px;
+}
+
+.detail-link {
+    font-family: var(--body-font);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-decoration: none;
+    padding: 14px 28px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.detail-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+@media screen and (max-width: 768px) {
+    .detail-highlights-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Tech Tags */
 .detail-tech {
     margin-bottom: 80px;

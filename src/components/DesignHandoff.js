@@ -29,12 +29,12 @@ const DesignHandoff = () => {
                         Looking for the design side?
                     </h2>
                     <p className="handoff-copy">
-                        Before I shipped systems, I shipped interfaces. The UX portfolio walks through
+                        Before I shipped systems, I shipped interfaces. The design portfolio walks through
                         the research, wireframes, and design decisions behind each project — visual
                         craft, accessibility, and the quiet choices that don't show in code.
                     </p>
                     <Link to="/" className="handoff-cta">
-                        <span className="handoff-cta-text">View UI/UX Portfolio</span>
+                        <span className="handoff-cta-text">View Design Portfolio</span>
                         <span className="handoff-cta-arrow">→</span>
                     </Link>
                 </div>

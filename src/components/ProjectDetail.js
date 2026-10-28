@@ -26,15 +26,54 @@ const projectDetails = {
         tech: ['React', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'SQLAlchemy', 'yfinance']
     },
     'BizzNex': {
-        tagline: 'Microservices-Driven Platform for Scalable Task Optimization and Real-Time Business Analytics',
-        duration: "Nov'24 – Dec'24",
-        semester: 'First Semester, Final Project',
+        tagline: 'A Business Workspace for Small Teams — Full-Stack TypeScript on One Shared Contract',
+        duration: '2026',
+        semester: 'Self-Initiated, Full-Stack SaaS',
         program: "Master's in Information System",
         summary: [
-            'BizzNex is a robust full-stack platform designed to streamline and centralize business operations for small-scale content creators, entrepreneurs, and freelancers. Built with modern web technologies, BizzNex leverages React for its dynamic and responsive front-end, enhanced with Fluent UI for consistent and professional styling. The application ensures rapid development and modern tooling with Vite, a high-performance build tool optimized for web development.',
-            'The back-end is powered by Node.js and Express, finally, data management is robustly supported by MongoDB, making it perfect for dynamic content. BizzNex\'s architecture employs a modular design for easy scalability and maintainability, with key features integrated through RESTful APIs, ensuring interoperability and secure communication between front-end and back-end.'
+            'BizzNex is a business workspace for small teams: projects and tasks, a CRM with contacts, companies, activities and a Lead → Qualified → Proposal → Won → Lost deal pipeline, seven marketing and productivity tools (calculator, notes, publisher, newsletter, events, notifications, and an assistant), plus onboarding, account settings, data export and account deletion. Everything persists to PostgreSQL, and the dashboard computes its metrics live from real data, including a lazy-loaded three.js Relationship Globe.',
+            'It is an npm-workspaces monorepo — apps/web, apps/api and packages/shared — where one package of TypeScript types and Zod schemas is the single source of truth: the NestJS API validates with it and the React client types against it, so a renamed field breaks both sides at compile time. The API is 17 controllers following one module pattern (JwtAuthGuard + @CurrentUser() + ZodValidationPipe) over 12 Prisma models, behind a global rate limiter and a single exception filter. The front end uses Redux Toolkit + RTK Query for all server state and a hand-built component layer that replaced Fluent UI, MUI, framer-motion and styled-components — about 83 kB gzipped for the app itself.',
+            'It ships like production software: versioned Prisma migrations applied on boot, 82 unit tests and 6 Postgres-backed e2e tests, GitHub Actions CI that also builds and boots both Docker images, and a free, always-on deployment on Render + Neon behind Cloudflare at bizznex.cheruvathoor.com.'
         ],
-        tech: ['React', 'Fluent UI', 'Vite', 'Node.js', 'Express', 'MongoDB', 'RESTful APIs']
+        highlights: [
+            {
+                title: 'Tenant isolation that covers links',
+                desc: 'All 11 content models cascade from User and every query is scoped by the JWT userId. Ownership checks also cover foreign keys — a deal can only point at your contact and company — and e2e tests prove another account\'s records can\'t be read, edited, deleted or linked.'
+            },
+            {
+                title: 'Revocable stateless sessions',
+                desc: 'The JWT carries a tokenVersion that the Passport strategy re-checks on every request. A password change bumps it, signing every other session out while the current one continues on a fresh token.'
+            },
+            {
+                title: 'A shared demo that can\'t be wrecked',
+                desc: 'The first demo sign-in after 30 minutes rebuilds the workspace in one transaction under a Postgres advisory lock, so only one API instance resets at a time, and signs out sessions still open on the old data.'
+            },
+            {
+                title: 'Hardening',
+                desc: 'helmet headers, a 256 kB body limit, 300 req/min globally and 10 req/min on auth-sensitive routes, origin-locked CORS, and fail-closed boot when JWT_SECRET or CORS_ORIGIN is missing. Prisma errors map to proper statuses (P2002 → 409, P2003 → 400, P2025 → 404) without leaking internals, and a build-time hashed Content-Security-Policy holds on any host.'
+            },
+            {
+                title: 'Local, key-free assistant',
+                desc: '"Brenda" answers from your own data — pipeline value by stage, open tasks by due date, outstanding activities — through Prisma queries and intent matching. No external API, no keys, no network calls.'
+            },
+            {
+                title: 'Studio windowing model',
+                desc: 'Tools open full-page inline on left-click or as draggable, resizable, minimizable windows on right-click, with cascade placement, z-order and a dock. Window geometry stays local so pointer-move never re-renders the tree, and windows get a separate compact widget because a shrunk full page broke the layout.'
+            },
+            {
+                title: 'Failure states designed in',
+                desc: 'Load errors with Retry, optimistic moves that roll back, locked buttons while saving, readable API errors, confirm dialogs that name what a delete takes with it, and reduced-motion support throughout.'
+            },
+            {
+                title: 'Testing, CI & deployment',
+                desc: 'CI runs migrations on a Postgres 16 service, then typecheck → lint → unit → build → e2e, then builds both images and boots the API in production mode. Render deploys from the same Dockerfile; a cron pinger hits /health/live (no DB query) so the API stays awake while Neon still scales to zero, and TRUST_PROXY=3 was measured live so each visitor gets their own rate limit.'
+            }
+        ],
+        tech: ['React 18', 'TypeScript', 'Vite', 'Redux Toolkit', 'RTK Query', 'Sass', 'three.js', 'NestJS 11', 'Prisma', 'PostgreSQL', 'Zod', 'Passport JWT', 'Swagger', 'Jest', 'Vitest', 'Docker', 'nginx', 'GitHub Actions', 'Render', 'Neon'],
+        links: [
+            { label: 'View live app', href: 'https://bizznex.cheruvathoor.com' },
+            { label: 'Read case study', href: 'https://bizznex.cheruvathoor.com/case-study.html' }
+        ]
     },
     'AviaOhr': {
         tagline: 'Empowering Digital Wellness through Predictive Mood Analysis to Enhance Mental Solidity',
@@ -46,17 +85,6 @@ const projectDetails = {
             'The platform analyzes user interactions and mental health research (e.g., behavioral studies) to detect harmful digital habits like prolonged screen use, suggesting mindfulness interventions. When deployed in corporate or telehealth settings, AviaOhr reduces burnout by prompting off-hour disconnections. Currently in development, it aims to meaningfully impact digital well-being.'
         ],
         tech: ['React.js', 'Node.js', 'Redux', 'TypeScript', 'Python', 'MongoDB']
-    },
-    'VOND.2': {
-        tagline: 'Blockchain Enhanced — Machine Learning Driven System for Prescription Drug Monitoring Resulting in Crime Prevention',
-        duration: "Dec'21 – Apr'22",
-        semester: '6th Semester, Mini Project',
-        program: 'B.Tech IT',
-        summary: [
-            'VOND.2 (Vigilante of Narcotic Detection.2) is a software to track drugs that contain narcotic and psychotropic substances, to prevent misuses like overdosing for euphoria or suicide. The project utilizes criminology insights from US Law Enforcement-1991, local news media, etc. (i.e. data gathered based on criminal activities that include vandalism, assault, and murder committed under the influence of external drugs).',
-            'With the collected data, the self-developed "GIHON" algorithm identifies high-volume buyers, cross-referencing with criminal histories (if any). For instance, if the VOND.2 software is deployed in the NCB (Narcotic Control Bureau of India) server it will proactively prevent drug-related crimes by anticipating potential offenders. VOND.2 employs HTML, CSS, and JavaScript for its front end to gather data and MySQL to store it.'
-        ],
-        tech: ['HTML', 'CSS', 'JavaScript', 'MySQL', 'Blockchain', 'Machine Learning']
     }
 };
 
@@ -143,6 +171,24 @@ const ProjectDetail = ({ project, onClose }) => {
                             ))}
                         </div>
 
+                        {details.highlights && (
+                            <div className="detail-highlights">
+                                <div className="section-header-row">
+                                    <span className="section-accent-line"></span>
+                                    <h2 className="detail-section-title">Engineering Highlights</h2>
+                                </div>
+                                <div className="detail-highlights-grid">
+                                    {details.highlights.map((h, i) => (
+                                        <div key={i} className="detail-highlight" style={{ animationDelay: `${0.7 + i * 0.08}s` }}>
+                                            <span className="detail-highlight-number">{String(i + 1).padStart(2, '0')}</span>
+                                            <h3 className="detail-highlight-title">{h.title}</h3>
+                                            <p className="detail-highlight-desc">{h.desc}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="detail-tech">
                             <div className="section-header-row">
                                 <span className="section-accent-line"></span>
@@ -154,6 +200,16 @@ const ProjectDetail = ({ project, onClose }) => {
                                 ))}
                             </div>
                         </div>
+
+                        {details.links && (
+                            <div className="detail-links">
+                                {details.links.map((l) => (
+                                    <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="detail-link">
+                                        {l.label} <span aria-hidden="true">↗</span>
+                                    </a>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     {/* Back to top */}

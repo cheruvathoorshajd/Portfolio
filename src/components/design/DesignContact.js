@@ -43,7 +43,7 @@ const DesignContact = () => {
                     <h2>Let's work together</h2>
                 </div>
                 <div className="contact-content">
-                    <p>Open to Product Designer roles starting August 2026. Available for interviews, portfolio walkthroughs, and conversations.</p>
+                    <p>Open to Product Designer roles. Available for interviews, portfolio walkthroughs, and conversations.</p>
                     <a
                         href={`mailto:${PERSONAL_INFO.email}`}
                         className="magnetic-button primary-link"
@@ -58,7 +58,6 @@ const DesignContact = () => {
                     </a>
                     <div className="social-links">
                         <a href={PERSONAL_INFO.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                        <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer">GitHub</a>
                         <Link to="/dev">Engineering Portfolio →</Link>
                     </div>
                 </div>
