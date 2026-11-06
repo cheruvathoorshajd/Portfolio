@@ -8,7 +8,7 @@ A modern, professional portfolio built with **React 19**, featuring smooth anima
 
 ## 🌐 Live Demo
 
-**Visit the live portfolio:** cheruvathoor.com
+**Visit the live portfolio:** https://cheruvathoor.com
 
 ---
 
