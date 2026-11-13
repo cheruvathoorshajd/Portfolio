@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { PERSONAL_INFO } from '../constants';
 import '../styles/Contact.css';
 
 const Contact = () => {
@@ -73,7 +74,7 @@ const Contact = () => {
                             LinkedIn
                         </a>
                         <a
-                            href="https://drive.google.com/file/d/1aWyL5sRj8L1dWROMSy-qbJBwXVUka6xg/view?usp=sharing"
+                            href={PERSONAL_INFO.resumeEngineering}
                             className="magnetic-button"
                             target="_blank"
                             rel="noopener noreferrer"
